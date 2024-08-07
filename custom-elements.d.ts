@@ -1,10 +1,12 @@
 declare namespace JSX {
   interface IntrinsicElements {
-    'lr-config': typeof LR.LrConfig.prototype & LR.LrConfig;
-    'lr-file-uploader-regular': typeof LR.FileUploaderRegular.prototype &
-      LR.FileUploaderRegular;
-    'lr-upload-ctx-provider': typeof LR.UploadCtxProvider.prototype &
-      LR.UploadCtxProvider;
+    'uc-config': typeof UC.LrConfig.prototype & UC.LrConfig;
+    'uc-file-uploader-regular': typeof UC.FileUploaderRegular.prototype &
+      UC.FileUploaderRegular;
+    'uc-file-uploader-inline': typeof UC.FileUploaderInline.prototype &
+      UC.FileUploaderInline;
+    'uc-upload-ctx-provider': typeof UC.UploadCtxProvider.prototype &
+      UC.UploadCtxProvider;
     // Add other custom elements here as needed
   }
 }

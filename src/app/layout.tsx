@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
+
+import '@uploadcare/file-uploader/web/uc-file-uploader-regular.min.css';
 import './globals.css';
 
 const font = DM_Sans({ subsets: ['latin'] });

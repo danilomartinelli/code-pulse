@@ -1,22 +1,28 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import * as LR from '@uploadcare/blocks';
+import { useEffect, useRef, useState } from 'react';
+import * as UC from '@uploadcare/file-uploader';
 import { useRouter } from 'next/navigation';
 
-type Props = {
+type UploadCareButton = {
   onUpload: (e: string) => any; // TODO: Replace with correct type
 };
 
-LR.registerBlocks(LR);
+UC.defineComponents(UC);
 
-const UploadCareButton = ({ onUpload }: Props) => {
+const UploadCareButton = ({ onUpload }: UploadCareButton) => {
   const router = useRouter();
   const ctxProviderRef = useRef<
-    typeof LR.UploadCtxProvider.prototype & LR.UploadCtxProvider
+    typeof UC.UploadCtxProvider.prototype & UC.UploadCtxProvider
   >(null);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+
+    let uploadContext: typeof UC.UploadCtxProvider.prototype &
+      UC.UploadCtxProvider;
+
     // TODO: Replace with correct type
     const handleUpload = async (e: any) => {
       const file = await onUpload(e.detail.cdnUrl);
@@ -26,27 +32,32 @@ const UploadCareButton = ({ onUpload }: Props) => {
     };
 
     if (ctxProviderRef.current) {
-      ctxProviderRef.current.addEventListener(
+      uploadContext = ctxProviderRef.current;
+      uploadContext.addEventListener(
         'file-upload-success',
         handleUpload
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+    return () => {
+      if (uploadContext) {
+        uploadContext.removeEventListener(
+          'file-upload-success',
+          handleUpload
+        );
+      }
+    };
+  }, [onUpload, router]);
+
+  if (!isClient) {
+    return null; // TODO: Loading spinner or placeholder
+  }
 
   return (
     <div>
-      <lr-config
-        ctx-name="uploader"
-        pubkey="a9428ff5ff90ae7a64eb" // TODO: Replace with your own public key
-      />
-
-      <lr-file-uploader-regular
-        ctx-name="uploader"
-        css-src={`https://cdn.jsdelivr.net/npm/@uploadcare/blocks@0.35.2/web/lr-file-uploader-regular.min.css`}
-      />
-
-      <lr-upload-ctx-provider
+      <uc-config ctx-name="uploader" pubkey="b0cde9d61c2b2fb2b440" />
+      <uc-file-uploader-regular ctx-name="uploader" />
+      <uc-upload-ctx-provider
         ctx-name="uploader"
         ref={ctxProviderRef}
       />
