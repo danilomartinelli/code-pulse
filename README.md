@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Code Pulse
+
+Code Pulse is a SAAS workflow automation platform designed specifically for product professionals, such as product managers. Inspired by n8n, our tool offers a secure and AI-driven experience for creating and managing complex automations intuitively.
+
+## Core Technologies
+
+- [Next.js](https://nextjs.org/) - React framework for web applications
+- [React Flow](https://reactflow.dev/) - Library for creating interactive flows
+- [Clerk](https://clerk.com/) - Authentication and user management
+- [Neon Tech](https://neon.tech/) - Serverless PostgreSQL database
+- [Upload Care](https://uploadcare.com/) - File management and processing
+- [Stripe](https://stripe.com/) - Payment and subscription processing
+- [Aceternity UI](https://ui.aceternity.com/) - Modern UI components
+- [shadcn/ui](https://ui.shadcn.com/) - Reusable UI components
+
+## Key Features
+
+- Drag-and-drop node builder
+- Creation of automation flows
+- Sequence of actions triggered by events
+- Integration with various platforms:
+  - Google Drive
+  - Slack
+  - Discord
+  - Notion
+  - Stripe
+- Mini-map for overall workflow visualization
+- Light and dark mode
+
+## Integrations
+
+- **Google Drive**: Connect and monitor changes
+- **Slack**: Send notifications and custom messages
+- **Discord**: Send notifications and custom messages
+- **Notion**: Create database entries
+- **Stripe**: Manage subscriptions and payments based on consumed credits
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository
+2. Install dependencies
+3. Set up environment variables (see `.env.example`)
+4. Run the project in development mode
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Contributing
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Contributions are welcome! Please read our contribution guide before submitting pull requests.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Support
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If you encounter any issues or have any questions, please open an issue on GitHub.
