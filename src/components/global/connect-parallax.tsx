@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+
 import {
   motion,
   useScroll,
@@ -9,20 +9,23 @@ import {
 } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRef } from 'react';
 
-export const HeroParallax = ({
-  products,
-}: {
-  products: {
-    title: string;
-    link: string;
-    thumbnail: string;
-  }[];
-}) => {
+type Product = {
+  title: string;
+  link: string;
+  thumbnail: string;
+};
+
+type HeroParallaxProps = {
+  products: Array<Product>;
+};
+
+export const HeroParallax = ({ products }: HeroParallaxProps) => {
   const firstRow = products.slice(0, 5);
   const secondRow = products.slice(5, 10);
   const thirdRow = products.slice(10, 15);
-  const ref = React.useRef(null);
+  const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
@@ -117,17 +120,15 @@ export const Header = () => {
   );
 };
 
+type ProductCardProps = {
+  product: Product;
+  translate: MotionValue<number>;
+};
+
 export const ProductCard = ({
   product,
   translate,
-}: {
-  product: {
-    title: string;
-    link: string;
-    thumbnail: string;
-  };
-  translate: MotionValue<number>;
-}) => {
+}: ProductCardProps) => {
   return (
     <motion.div
       style={{

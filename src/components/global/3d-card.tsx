@@ -1,14 +1,19 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
-import React, {
+import {
   createContext,
   useState,
   useContext,
   useRef,
   useEffect,
 } from 'react';
+
+type CardContainerProps = {
+  children?: React.ReactNode;
+  className?: string;
+  containerClassName?: string;
+};
 
 const MouseEnterContext = createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
@@ -18,11 +23,7 @@ export const CardContainer = ({
   children,
   className,
   containerClassName,
-}: {
-  children?: React.ReactNode;
-  className?: string;
-  containerClassName?: string;
-}) => {
+}: CardContainerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMouseEntered, setIsMouseEntered] = useState(false);
 
@@ -78,13 +79,12 @@ export const CardContainer = ({
   );
 };
 
-export const CardBody = ({
-  children,
-  className,
-}: {
+type CardBodyProps = {
   children: React.ReactNode;
   className?: string;
-}) => {
+};
+
+export const CardBody = ({ children, className }: CardBodyProps) => {
   return (
     <div
       className={cn(
@@ -95,6 +95,18 @@ export const CardBody = ({
       {children}
     </div>
   );
+};
+
+type CardItemProps = {
+  as?: React.ElementType;
+  children: React.ReactNode;
+  className?: string;
+  translateX?: number | string;
+  translateY?: number | string;
+  translateZ?: number | string;
+  rotateX?: number | string;
+  rotateY?: number | string;
+  rotateZ?: number | string;
 };
 
 export const CardItem = ({
@@ -108,17 +120,7 @@ export const CardItem = ({
   rotateY = 0,
   rotateZ = 0,
   ...rest
-}: {
-  as?: React.ElementType;
-  children: React.ReactNode;
-  className?: string;
-  translateX?: number | string;
-  translateY?: number | string;
-  translateZ?: number | string;
-  rotateX?: number | string;
-  rotateY?: number | string;
-  rotateZ?: number | string;
-}) => {
+}: CardItemProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isMouseEntered] = useMouseEnter();
 

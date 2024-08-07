@@ -2,7 +2,19 @@
 
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+type Item = {
+  href: string;
+};
+
+type InfiniteMovingCardsProps = {
+  items: Item[];
+  direction?: 'left' | 'right';
+  speed?: 'fast' | 'normal' | 'slow';
+  pauseOnHover?: boolean;
+  className?: string;
+};
 
 export const InfiniteMovingCards = ({
   items,
@@ -10,17 +22,9 @@ export const InfiniteMovingCards = ({
   speed = 'fast',
   pauseOnHover = true,
   className,
-}: {
-  items: {
-    href: string;
-  }[];
-  direction?: 'left' | 'right';
-  speed?: 'fast' | 'normal' | 'slow';
-  pauseOnHover?: boolean;
-  className?: string;
-}) => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const scrollerRef = React.useRef<HTMLUListElement>(null);
+}: InfiniteMovingCardsProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLUListElement>(null);
   const [start, setStart] = useState(false);
 
   useEffect(() => {
@@ -100,7 +104,7 @@ export const InfiniteMovingCards = ({
           pauseOnHover && 'hover:[animation-play-state:paused]'
         )}
       >
-        {items.map((item, idx) => (
+        {items.map((item) => (
           <Image
             width={170}
             height={1}

@@ -1,20 +1,28 @@
 'use client';
-import React, { useRef } from 'react';
-import { useScroll, useTransform, motion } from 'framer-motion';
+
+import { useEffect, useRef, useState } from 'react';
+import {
+  useScroll,
+  useTransform,
+  motion,
+  MotionValue,
+} from 'framer-motion';
 import Image from 'next/image';
+
+type ContainerScrollProps = {
+  titleComponent: string | React.ReactNode;
+};
 
 export const ContainerScroll = ({
   titleComponent,
-}: {
-  titleComponent: string | React.ReactNode;
-}) => {
+}: ContainerScrollProps) => {
   const containerRef = useRef<any>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
   });
-  const [isMobile, setIsMobile] = React.useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -52,13 +60,21 @@ export const ContainerScroll = ({
           translate={translate}
           titleComponent={titleComponent}
         />
-        <Card rotate={rotate} translate={translate} scale={scale} />
+        <Card rotate={rotate} scale={scale} />
       </div>
     </div>
   );
 };
 
-export const Header = ({ translate, titleComponent }: any) => {
+type HeaderProps = {
+  translate: MotionValue<number>;
+  titleComponent: string | React.ReactNode;
+};
+
+export const Header = ({
+  translate,
+  titleComponent,
+}: HeaderProps) => {
   return (
     <motion.div
       style={{
@@ -71,15 +87,12 @@ export const Header = ({ translate, titleComponent }: any) => {
   );
 };
 
-export const Card = ({
-  rotate,
-  scale,
-  translate,
-}: {
-  rotate: any;
-  scale: any;
-  translate: any;
-}) => {
+type CardProps = {
+  rotate: MotionValue<number>;
+  scale: MotionValue<number>;
+};
+
+export const Card = ({ rotate, scale }: CardProps) => {
   return (
     <motion.div
       style={{

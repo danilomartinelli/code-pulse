@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { SparklesCore } from './sparkles';
@@ -24,13 +24,15 @@ export function LampComponent() {
   );
 }
 
+type LampContainerProps = {
+  children: React.ReactNode;
+  className?: string;
+};
+
 export const LampContainer = ({
   children,
   className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
+}: LampContainerProps) => {
   return (
     <div
       className={cn(
