@@ -11,7 +11,6 @@ type ParticlesProps = {
   id?: string;
   className?: string;
   background?: string;
-  particleSize?: number;
   minSize?: number;
   maxSize?: number;
   speed?: number;
@@ -58,13 +57,13 @@ export const SparklesCore = (props: ParticlesProps) => {
     >
       {init && (
         <Particles
-          id={id || 'tsparticles'}
+          id={id ?? 'tsparticles'}
           className={cn('h-full w-full')}
           particlesLoaded={particlesLoaded}
           options={{
             background: {
               color: {
-                value: background || '#0d47a1',
+                value: background ?? '#0d47a1',
               },
             },
             fullScreen: {
@@ -125,7 +124,7 @@ export const SparklesCore = (props: ParticlesProps) => {
                 },
               },
               color: {
-                value: particleColor || '#ffffff',
+                value: particleColor ?? '#ffffff',
                 animation: {
                   h: {
                     count: 0,
@@ -233,7 +232,7 @@ export const SparklesCore = (props: ParticlesProps) => {
                   mode: 'delete',
                   value: 0,
                 },
-                value: particleDensity || 120,
+                value: particleDensity ?? 120,
               },
               opacity: {
                 value: {
@@ -243,7 +242,7 @@ export const SparklesCore = (props: ParticlesProps) => {
                 animation: {
                   count: 0,
                   enable: true,
-                  speed: speed || 4,
+                  speed: speed ?? 4,
                   decay: 0,
                   delay: 2,
                   sync: false,
@@ -272,8 +271,8 @@ export const SparklesCore = (props: ParticlesProps) => {
               },
               size: {
                 value: {
-                  min: minSize || 1,
-                  max: maxSize || 3,
+                  min: minSize ?? 1,
+                  max: maxSize ?? 3,
                 },
                 animation: {
                   count: 0,

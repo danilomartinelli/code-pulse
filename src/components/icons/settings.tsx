@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 
-type Props = { selected: boolean };
+type SettingsProps = { selected: boolean };
 
-const Settings = ({ selected }: Props) => {
+const Settings = ({ selected }: SettingsProps) => {
   return (
     <svg
       width="24"

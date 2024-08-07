@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 
-type Props = { selected: boolean };
+type CategoryProps = { selected: boolean };
 
-function Category({ selected }: Props) {
+const Category = ({ selected }: CategoryProps) => {
   return (
     <svg
       width="24"
@@ -57,6 +57,6 @@ function Category({ selected }: Props) {
       />
     </svg>
   );
-}
+};
 
 export default Category;

@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 
-const Logs = ({ selected }: { selected: boolean }) => {
+type LogsProps = { selected: boolean };
+
+const Logs = ({ selected }: LogsProps) => {
   return (
     <svg
       width="24"

@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 
-type Props = { selected: boolean };
+type TemplatesProps = { selected: boolean };
 
-const Templates = ({ selected }: Props) => {
+const Templates = ({ selected }: TemplatesProps) => {
   return (
     <svg
       width="24"

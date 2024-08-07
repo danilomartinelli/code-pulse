@@ -1,3 +1,4 @@
+import { Feature } from '@/app/_components/pricing-card';
 import Category from '@/components/icons/category';
 import Logs from '@/components/icons/clipboard';
 import Templates from '@/components/icons/cloud_download';
@@ -6,97 +7,78 @@ import Payment from '@/components/icons/payment';
 import Settings from '@/components/icons/settings';
 import Workflows from '@/components/icons/workflows';
 
-export const clients = [...new Array(10)].map((client, index) => ({
-  href: `/${index + 1}.png`,
-}));
+const generateClients = (count: number) =>
+  Array.from({ length: count }, (_, index) => ({
+    href: `/${index + 1}.png`,
+  }));
 
-export const products = [
-  {
-    title: 'Moonbeam',
-    link: 'https://gomoonbeam.com',
-    thumbnail: '/p1.png',
-  },
-  {
-    title: 'Cursor',
-    link: 'https://cursor.so',
-    thumbnail: '/p2.png',
-  },
-  {
-    title: 'Rogue',
-    link: 'https://userogue.com',
-    thumbnail: '/p3.png',
-  },
+export const clients = generateClients(10);
 
-  {
-    title: 'Editorially',
-    link: 'https://editorially.org',
-    thumbnail: '/p4.png',
-  },
-  {
-    title: 'Editrix AI',
-    link: 'https://editrix.ai',
-    thumbnail: '/p5.png',
-  },
-  {
-    title: 'Pixel Perfect',
-    link: 'https://app.pixelperfect.quest',
-    thumbnail: '/p6.png',
-  },
+const getThumbnail = (index: number) => `/p${(index % 6) + 1}.png`;
 
-  {
-    title: 'Algochurn',
-    link: 'https://algochurn.com',
-    thumbnail: '/p1.png',
-  },
-  {
-    title: 'Aceternity UI',
-    link: 'https://ui.aceternity.com',
-    thumbnail: '/p2.png',
-  },
+const productData = [
+  { title: 'Moonbeam', link: 'https://gomoonbeam.com' },
+  { title: 'Cursor', link: 'https://cursor.so' },
+  { title: 'Rogue', link: 'https://userogue.com' },
+  { title: 'Editorially', link: 'https://editorially.org' },
+  { title: 'Editrix AI', link: 'https://editrix.ai' },
+  { title: 'Pixel Perfect', link: 'https://app.pixelperfect.quest' },
+  { title: 'Algochurn', link: 'https://algochurn.com' },
+  { title: 'Aceternity UI', link: 'https://ui.aceternity.com' },
   {
     title: 'Tailwind Master Kit',
     link: 'https://tailwindmasterkit.com',
-    thumbnail: '/p3.png',
   },
-  {
-    title: 'SmartBridge',
-    link: 'https://smartbridgetech.com',
-    thumbnail: '/p4.png',
-  },
-  {
-    title: 'Renderwork Studio',
-    link: 'https://renderwork.studio',
-    thumbnail: '/p5.png',
-  },
-
-  {
-    title: 'Creme Digital',
-    link: 'https://cremedigital.com',
-    thumbnail: '/p6.png',
-  },
+  { title: 'SmartBridge', link: 'https://smartbridgetech.com' },
+  { title: 'Renderwork Studio', link: 'https://renderwork.studio' },
+  { title: 'Creme Digital', link: 'https://cremedigital.com' },
   {
     title: 'Golden Bells Academy',
     link: 'https://goldenbellsacademy.com',
-    thumbnail: '/p1.png',
   },
-  {
-    title: 'Invoker Labs',
-    link: 'https://invoker.lol',
-    thumbnail: '/p2.png',
-  },
-  {
-    title: 'E Free Invoice',
-    link: 'https://efreeinvoice.com',
-    thumbnail: '/p3.png',
-  },
+  { title: 'Invoker Labs', link: 'https://invoker.lol' },
+  { title: 'E Free Invoice', link: 'https://efreeinvoice.com' },
 ];
 
-export const menuOptions = [
-  { name: 'Dashboard', Component: Home, href: '/dashboard' },
-  { name: 'Workflows', Component: Workflows, href: '/workflows' },
-  { name: 'Settings', Component: Settings, href: '/settings' },
-  { name: 'Connections', Component: Category, href: '/connections' },
-  { name: 'Billing', Component: Payment, href: '/billing' },
-  { name: 'Templates', Component: Templates, href: '/templates' },
-  { name: 'Logs', Component: Logs, href: '/logs' },
+export const products = productData.map((product, index) => ({
+  ...product,
+  thumbnail: getThumbnail(index),
+}));
+
+const icons = {
+  Home,
+  Workflows,
+  Settings,
+  Category,
+  Payment,
+  Templates,
+  Logs,
+};
+
+const menuData = [
+  { name: 'Dashboard', icon: 'Home', href: '/dashboard' },
+  { name: 'Workflows', icon: 'Workflows', href: '/workflows' },
+  { name: 'Settings', icon: 'Settings', href: '/settings' },
+  { name: 'Connections', icon: 'Category', href: '/connections' },
+  { name: 'Billing', icon: 'Payment', href: '/billing' },
+  { name: 'Templates', icon: 'Templates', href: '/templates' },
+  { name: 'Logs', icon: 'Logs', href: '/logs' },
 ];
+
+export const menuOptions = menuData.map((item) => ({
+  ...item,
+  Component: icons[item.icon as keyof typeof icons],
+}));
+
+const createFeatures = (texts: string[]): Feature[] => {
+  return texts.map((text, index) => ({
+    id: `feature-${index + 1}`,
+    text,
+  }));
+};
+
+export const commonFeatures = createFeatures([
+  '3 Free automations',
+  '100 tasks per month',
+  'Two-step Actions',
+]);

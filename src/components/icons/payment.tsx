@@ -1,10 +1,8 @@
 import clsx from 'clsx';
 
-type Props = {
-  selected: boolean;
-};
+type PaymentProps = { selected: boolean };
 
-const Payment = ({ selected }: Props) => {
+const Payment = ({ selected }: PaymentProps) => {
   return (
     <svg
       width="24"

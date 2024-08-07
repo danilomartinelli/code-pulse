@@ -7,6 +7,10 @@ import {
   useContext,
   useRef,
   useEffect,
+  useMemo,
+  Dispatch,
+  SetStateAction,
+  useCallback,
 } from 'react';
 
 type CardContainerProps = {
@@ -15,8 +19,13 @@ type CardContainerProps = {
   containerClassName?: string;
 };
 
+type MouseEnterContextType = [
+  boolean,
+  Dispatch<SetStateAction<boolean>>
+];
+
 const MouseEnterContext = createContext<
-  [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
+  MouseEnterContextType | undefined
 >(undefined);
 
 export const CardContainer = ({
@@ -24,10 +33,16 @@ export const CardContainer = ({
   className,
   containerClassName,
 }: CardContainerProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLButtonElement>(null);
   const [isMouseEntered, setIsMouseEntered] = useState(false);
+  const contextValue = useMemo(
+    (): MouseEnterContextType => [isMouseEntered, setIsMouseEntered],
+    [isMouseEntered]
+  );
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
     if (!containerRef.current) return;
     const { left, top, width, height } =
       containerRef.current.getBoundingClientRect();
@@ -36,20 +51,18 @@ export const CardContainer = ({
     containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
   };
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseEnter = () => {
     setIsMouseEntered(true);
-    if (!containerRef.current) return;
   };
 
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseLeave = () => {
     if (!containerRef.current) return;
     setIsMouseEntered(false);
     containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
   };
+
   return (
-    <MouseEnterContext.Provider
-      value={[isMouseEntered, setIsMouseEntered]}
-    >
+    <MouseEnterContext.Provider value={contextValue}>
       <div
         className={cn(
           'flex items-center justify-center',
@@ -59,7 +72,7 @@ export const CardContainer = ({
           perspective: '1000px',
         }}
       >
-        <div
+        <button
           ref={containerRef}
           onMouseEnter={handleMouseEnter}
           onMouseMove={handleMouseMove}
@@ -73,7 +86,7 @@ export const CardContainer = ({
           }}
         >
           {children}
-        </div>
+        </button>
       </div>
     </MouseEnterContext.Provider>
   );
@@ -107,6 +120,9 @@ type CardItemProps = {
   rotateX?: number | string;
   rotateY?: number | string;
   rotateZ?: number | string;
+  onClick?: (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => void;
 };
 
 export const CardItem = ({
@@ -119,36 +135,52 @@ export const CardItem = ({
   rotateX = 0,
   rotateY = 0,
   rotateZ = 0,
+  onClick,
   ...rest
 }: CardItemProps) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const [isMouseEntered] = useMouseEnter();
+  const isButton = Tag === 'button';
 
-  useEffect(() => {
-    handleAnimations();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMouseEntered]);
-
-  const handleAnimations = () => {
+  const handleAnimations = useCallback(() => {
     if (!ref.current) return;
     if (isMouseEntered) {
       ref.current.style.transform = `translateX(${translateX}px) translateY(${translateY}px) translateZ(${translateZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg)`;
     } else {
       ref.current.style.transform = `translateX(0px) translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)`;
     }
-  };
+  }, [
+    isMouseEntered,
+    translateX,
+    translateY,
+    translateZ,
+    rotateX,
+    rotateY,
+    rotateZ,
+  ]);
+
+  useEffect(() => {
+    handleAnimations();
+  }, [handleAnimations]);
+
+  const ElementType = isButton ? 'span' : Tag;
 
   return (
-    <Tag
+    <ElementType
       ref={ref}
       className={cn(
         'w-fit transition duration-200 ease-linear',
-        className
+        className,
+        isButton || onClick ? 'cursor-pointer' : ''
       )}
+      {...(isButton || onClick
+        ? { role: 'button', tabIndex: 0 }
+        : {})}
+      onClick={onClick}
       {...rest}
     >
       {children}
-    </Tag>
+    </ElementType>
   );
 };
 
