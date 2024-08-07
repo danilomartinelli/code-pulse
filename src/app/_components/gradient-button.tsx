@@ -7,6 +7,7 @@ type GradientButtonProps = {
 const GradientButton = ({ children }: GradientButtonProps) => {
   return (
     <Button
+      data-testid="gradient-button"
       size={'lg'}
       className="p-8 mb-8 md:mb-0 text-2xl w-full sm:w-fit border-t-2 rounded-full border-[#4D4D4D] bg-[#1F1F1F] hover:bg-white group transition-all flex items-center justify-center gap-4 hover:shadow-xl hover:shadow-neutral-500 duration-500"
     >
