@@ -9,7 +9,7 @@ export default defineConfig({
   reporter: 'html',
   use: {
     headless: true,
-    baseURL: 'https://localhost:3000',
+    baseURL: 'http://localhost:3001',
     trace: 'on-first-retry',
   },
   projects: [
@@ -19,8 +19,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'bun run dev',
-    port: 3000,
-    reuseExistingServer: !process.env.CI,
+    command: 'bun run dev:test',
+    port: 3001,
+    reuseExistingServer: false,
   },
 });
