@@ -1,16 +1,16 @@
-import ProfilePictureWrapper from './_components/profile-picture-wrapper';
-import ProfileForm from '@/components/forms/profile-form';
+import ProfilePictureWrapper from "./_components/profile-picture-wrapper";
+import ProfileForm from "@/components/forms/profile-form";
 
 const Settings = async () => {
   // TODO: Replace all the following with real data
   const userImage = null;
   const user = {
-    name: 'John Doe',
-    email: 'john.doe@email.com',
+    name: "John Doe",
+    email: "john.doe@email.com",
   };
 
   const updateUserInfo = async (name: string) => {
-    'use server';
+    "use server";
 
     // TODO: Do the actual update on the server
     // const updateUser = await db.user.update({

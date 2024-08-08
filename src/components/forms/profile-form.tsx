@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { EditUserProfileSchema } from '@/lib/types';
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { EditUserProfileSchema } from "@/lib/types";
 import {
   Form,
   FormControl,
@@ -12,10 +12,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import { Loader2 } from 'lucide-react';
+} from "../ui/form";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Loader2 } from "lucide-react";
 
 // TODO: Change any to actual user type from the API and onUpdate to a function
 type ProfileFormProps = {
@@ -27,7 +27,7 @@ const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof EditUserProfileSchema>>({
-    mode: 'onChange',
+    mode: "onChange",
     resolver: zodResolver(EditUserProfileSchema),
     defaultValues: {
       name: user.name,
@@ -36,7 +36,7 @@ const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
   });
 
   const handleSubmit = async (
-    values: z.infer<typeof EditUserProfileSchema>
+    values: z.infer<typeof EditUserProfileSchema>,
   ) => {
     setIsLoading(true);
     await onUpdate(values.name);
@@ -44,8 +44,8 @@ const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
   };
 
   useEffect(() => {
-    const currentName = form.getValues('name');
-    const currentEmail = form.getValues('email');
+    const currentName = form.getValues("name");
+    const currentEmail = form.getValues("email");
 
     if (currentName !== user.name || currentEmail !== user.email) {
       form.reset({ name: user.name, email: user.email });
@@ -64,9 +64,7 @@ const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg">
-                User full name
-              </FormLabel>
+              <FormLabel className="text-lg">User full name</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="Name" />
               </FormControl>
@@ -102,7 +100,7 @@ const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
               Saving
             </>
           ) : (
-            'Save User Settings'
+            "Save User Settings"
           )}
         </Button>
       </form>

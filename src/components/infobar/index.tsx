@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { Book, Headphones, Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { Book, Headphones, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from "@/components/ui/tooltip";
 
 const InfoBar = () => {
-  const tier = 'Free'; // TODO: Get tier from API
+  const tier = "Free"; // TODO: Get tier from API
   const credits = 5; // TODO: Get credits from API
 
   return (
@@ -19,9 +19,9 @@ const InfoBar = () => {
         <p className="text-sm font-light text-gray-300">Credits</p>
         {/* TODO: Remember to remove 'ts-ignore' when the tier is no longer a mock */}
         {/* @ts-ignore */}
-        {tier !== 'Unlimited' ? (
+        {tier !== "Unlimited" ? (
           <span>
-            {credits}/{tier == 'Free' ? '10' : tier == 'Pro' && '100'}
+            {credits}/{tier == "Free" ? "10" : tier == "Pro" && "100"}
           </span>
         ) : (
           <span>Unlimited</span>

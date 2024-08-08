@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   motion,
@@ -6,10 +6,10 @@ import {
   useTransform,
   useSpring,
   MotionValue,
-} from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRef } from 'react';
+} from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { useRef } from "react";
 
 type Product = {
   title: string;
@@ -28,34 +28,34 @@ export const HeroParallax = ({ products }: HeroParallaxProps) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start start', 'end start'],
+    offset: ["start start", "end start"],
   });
 
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
   const translateX = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, 1000]),
-    springConfig
+    springConfig,
   );
   const translateXReverse = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, -1000]),
-    springConfig
+    springConfig,
   );
   const rotateX = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [15, 0]),
-    springConfig
+    springConfig,
   );
   const opacity = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
-    springConfig
+    springConfig,
   );
   const rotateZ = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [20, 0]),
-    springConfig
+    springConfig,
   );
   const translateY = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
-    springConfig
+    springConfig,
   );
 
   return (
@@ -112,9 +112,9 @@ export const Header = () => {
         The Ultimate <br /> development studio
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-        We build beautiful products with the latest technologies and
-        frameworks. We are a team of passionate developers and
-        designers that love to build amazing products.
+        We build beautiful products with the latest technologies and frameworks.
+        We are a team of passionate developers and designers that love to build
+        amazing products.
       </p>
     </div>
   );
@@ -125,10 +125,7 @@ type ProductCardProps = {
   translate: MotionValue<number>;
 };
 
-export const ProductCard = ({
-  product,
-  translate,
-}: ProductCardProps) => {
+export const ProductCard = ({ product, translate }: ProductCardProps) => {
   return (
     <motion.div
       style={{

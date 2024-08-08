@@ -1,14 +1,12 @@
-'use client';
+"use client";
 
-import ProfilePicture from './profile-picture';
+import ProfilePicture from "./profile-picture";
 
 type ProfilePictureWrapperProps = {
   userImage: string | null;
 };
 
-const ProfilePictureWrapper = ({
-  userImage,
-}: ProfilePictureWrapperProps) => {
+const ProfilePictureWrapper = ({ userImage }: ProfilePictureWrapperProps) => {
   const handleDelete = async () => {
     // TODO: Implement your delete logic here
   };

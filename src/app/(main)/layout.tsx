@@ -1,5 +1,5 @@
-import Sidebar from '@/components/sidebar';
-import InfoBar from '@/components/infobar';
+import Sidebar from "@/components/sidebar";
+import InfoBar from "@/components/infobar";
 
 type Props = { children: React.ReactNode };
 

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import * as UC from '@uploadcare/file-uploader';
-import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from "react";
+import * as UC from "@uploadcare/file-uploader";
+import { useRouter } from "next/navigation";
 
 type UploadCareButton = {
   onUpload: (e: string) => any; // TODO: Replace with correct type
@@ -33,18 +33,12 @@ const UploadCareButton = ({ onUpload }: UploadCareButton) => {
 
     if (ctxProviderRef.current) {
       uploadContext = ctxProviderRef.current;
-      uploadContext.addEventListener(
-        'file-upload-success',
-        handleUpload
-      );
+      uploadContext.addEventListener("file-upload-success", handleUpload);
     }
 
     return () => {
       if (uploadContext) {
-        uploadContext.removeEventListener(
-          'file-upload-success',
-          handleUpload
-        );
+        uploadContext.removeEventListener("file-upload-success", handleUpload);
       }
     };
   }, [onUpload, router]);
@@ -57,10 +51,7 @@ const UploadCareButton = ({ onUpload }: UploadCareButton) => {
     <div>
       <uc-config ctx-name="uploader" pubkey="b0cde9d61c2b2fb2b440" />
       <uc-file-uploader-regular ctx-name="uploader" />
-      <uc-upload-ctx-provider
-        ctx-name="uploader"
-        ref={ctxProviderRef}
-      />
+      <uc-upload-ctx-provider ctx-name="uploader" ref={ctxProviderRef} />
     </div>
   );
 };

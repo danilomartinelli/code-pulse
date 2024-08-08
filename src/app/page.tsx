@@ -1,11 +1,11 @@
-import { HeroParallax } from '@/components/global/connect-parallax';
-import { ContainerScroll } from '@/components/global/container-scroll-animation';
-import { InfiniteMovingCards } from '@/components/global/infinite-moving-cards';
-import { LampComponent } from '@/components/global/lamp';
-import Navbar from '@/components/global/navbar';
-import { clients, commonFeatures, products } from '@/lib/constants';
-import PricingCard from './_components/pricing-card';
-import GradientButton from './_components/gradient-button';
+import { HeroParallax } from "@/components/global/connect-parallax";
+import { ContainerScroll } from "@/components/global/container-scroll-animation";
+import { InfiniteMovingCards } from "@/components/global/infinite-moving-cards";
+import { LampComponent } from "@/components/global/lamp";
+import Navbar from "@/components/global/navbar";
+import { clients, commonFeatures, products } from "@/lib/constants";
+import PricingCard from "./_components/pricing-card";
+import GradientButton from "./_components/gradient-button";
 
 export default function Home() {
   return (
@@ -38,11 +38,7 @@ export default function Home() {
       <section className="mt-[-500px]">
         <LampComponent />
         <div className="flex flex-wrap items-center justify-center flex-col md:flex-row gap-8 -mt-72">
-          <PricingCard
-            title="Hobby"
-            price="$0"
-            features={commonFeatures}
-          />
+          <PricingCard title="Hobby" price="$0" features={commonFeatures} />
           <PricingCard
             title="Pro Plan"
             price="$29"

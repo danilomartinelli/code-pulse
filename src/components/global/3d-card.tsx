@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 import {
   createContext,
   useState,
@@ -11,7 +11,7 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
-} from 'react';
+} from "react";
 
 type CardContainerProps = {
   children?: React.ReactNode;
@@ -19,14 +19,11 @@ type CardContainerProps = {
   containerClassName?: string;
 };
 
-type MouseEnterContextType = [
-  boolean,
-  Dispatch<SetStateAction<boolean>>
-];
+type MouseEnterContextType = [boolean, Dispatch<SetStateAction<boolean>>];
 
-const MouseEnterContext = createContext<
-  MouseEnterContextType | undefined
->(undefined);
+const MouseEnterContext = createContext<MouseEnterContextType | undefined>(
+  undefined,
+);
 
 export const CardContainer = ({
   children,
@@ -37,12 +34,10 @@ export const CardContainer = ({
   const [isMouseEntered, setIsMouseEntered] = useState(false);
   const contextValue = useMemo(
     (): MouseEnterContextType => [isMouseEntered, setIsMouseEntered],
-    [isMouseEntered]
+    [isMouseEntered],
   );
 
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!containerRef.current) return;
     const { left, top, width, height } =
       containerRef.current.getBoundingClientRect();
@@ -64,12 +59,9 @@ export const CardContainer = ({
   return (
     <MouseEnterContext.Provider value={contextValue}>
       <div
-        className={cn(
-          'flex items-center justify-center',
-          containerClassName
-        )}
+        className={cn("flex items-center justify-center", containerClassName)}
         style={{
-          perspective: '1000px',
+          perspective: "1000px",
         }}
       >
         <button
@@ -78,11 +70,11 @@ export const CardContainer = ({
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           className={cn(
-            'flex items-center justify-center relative transition-all duration-200 ease-linear',
-            className
+            "flex items-center justify-center relative transition-all duration-200 ease-linear",
+            className,
           )}
           style={{
-            transformStyle: 'preserve-3d',
+            transformStyle: "preserve-3d",
           }}
         >
           {children}
@@ -101,8 +93,8 @@ export const CardBody = ({ children, className }: CardBodyProps) => {
   return (
     <div
       className={cn(
-        'h-96 w-96 [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]',
-        className
+        "h-96 w-96 [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]",
+        className,
       )}
     >
       {children}
@@ -120,13 +112,11 @@ type CardItemProps = {
   rotateX?: number | string;
   rotateY?: number | string;
   rotateZ?: number | string;
-  onClick?: (
-    event: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => void;
+  onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 };
 
 export const CardItem = ({
-  as: Tag = 'div',
+  as: Tag = "div",
   children,
   className,
   translateX = 0,
@@ -140,7 +130,7 @@ export const CardItem = ({
 }: CardItemProps) => {
   const ref = useRef<HTMLElement>(null);
   const [isMouseEntered] = useMouseEnter();
-  const isButton = Tag === 'button';
+  const isButton = Tag === "button";
 
   const handleAnimations = useCallback(() => {
     if (!ref.current) return;
@@ -163,19 +153,17 @@ export const CardItem = ({
     handleAnimations();
   }, [handleAnimations]);
 
-  const ElementType = isButton ? 'span' : Tag;
+  const ElementType = isButton ? "span" : Tag;
 
   return (
     <ElementType
       ref={ref}
       className={cn(
-        'w-fit transition duration-200 ease-linear',
+        "w-fit transition duration-200 ease-linear",
         className,
-        isButton || onClick ? 'cursor-pointer' : ''
+        isButton || onClick ? "cursor-pointer" : "",
       )}
-      {...(isButton || onClick
-        ? { role: 'button', tabIndex: 0 }
-        : {})}
+      {...(isButton || onClick ? { role: "button", tabIndex: 0 } : {})}
       onClick={onClick}
       {...rest}
     >
@@ -188,9 +176,7 @@ export const CardItem = ({
 export const useMouseEnter = () => {
   const context = useContext(MouseEnterContext);
   if (context === undefined) {
-    throw new Error(
-      'useMouseEnter must be used within a MouseEnterProvider'
-    );
+    throw new Error("useMouseEnter must be used within a MouseEnterProvider");
   }
   return context;
 };

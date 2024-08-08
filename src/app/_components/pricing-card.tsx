@@ -1,11 +1,7 @@
-'use client';
+"use client";
 
-import {
-  CardBody,
-  CardContainer,
-  CardItem,
-} from '@/components/global/3d-card';
-import { CheckIcon } from 'lucide-react';
+import { CardBody, CardContainer, CardItem } from "@/components/global/3d-card";
+import { CheckIcon } from "lucide-react";
 
 export type Feature = {
   id: string;
@@ -29,9 +25,7 @@ const PricingCard = ({
     <CardContainer className="inter-var">
       <CardBody
         className={`bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-neutral-500/[0.1] dark:bg-black ${
-          highlightBorder
-            ? 'dark:border-[#E2CBFF]'
-            : 'dark:border-white/[0.2]'
+          highlightBorder ? "dark:border-[#E2CBFF]" : "dark:border-white/[0.2]"
         } border-black/[0.1] w-full md:!w-[350px] h-auto rounded-xl p-6 border`}
       >
         <CardItem
@@ -45,14 +39,11 @@ const PricingCard = ({
           translateZ="60"
           className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
         >
-          Get a glimpse of what our software is capable of. Just a
-          heads up you&apos;ll never leave us after this!
+          Get a glimpse of what our software is capable of. Just a heads up
+          you&apos;ll never leave us after this!
           <ul className="my-4 flex flex-col gap-2">
             {features.map((feature) => (
-              <li
-                key={feature.id}
-                className="flex items-center gap-2"
-              >
+              <li key={feature.id} className="flex items-center gap-2">
                 <CheckIcon />
                 {feature.text}
               </li>

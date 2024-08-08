@@ -1,21 +1,14 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import {
-  useScroll,
-  useTransform,
-  motion,
-  MotionValue,
-} from 'framer-motion';
-import Image from 'next/image';
+import { useEffect, useRef, useState } from "react";
+import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import Image from "next/image";
 
 type ContainerScrollProps = {
   titleComponent: string | React.ReactNode;
 };
 
-export const ContainerScroll = ({
-  titleComponent,
-}: ContainerScrollProps) => {
+export const ContainerScroll = ({ titleComponent }: ContainerScrollProps) => {
   const containerRef = useRef<any>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -27,9 +20,9 @@ export const ContainerScroll = ({
       setIsMobile(window.innerWidth <= 768);
     };
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
     return () => {
-      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener("resize", checkMobile);
     };
   }, []);
 
@@ -38,11 +31,7 @@ export const ContainerScroll = ({
   };
 
   const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 1],
-    scaleDimensions()
-  );
+  const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
   const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
@@ -53,13 +42,10 @@ export const ContainerScroll = ({
       <div
         className="py-40 w-full relative"
         style={{
-          perspective: '1000px',
+          perspective: "1000px",
         }}
       >
-        <Header
-          translate={translate}
-          titleComponent={titleComponent}
-        />
+        <Header translate={translate} titleComponent={titleComponent} />
         <Card rotate={rotate} scale={scale} />
       </div>
     </div>
@@ -71,10 +57,7 @@ type HeaderProps = {
   titleComponent: string | React.ReactNode;
 };
 
-export const Header = ({
-  translate,
-  titleComponent,
-}: HeaderProps) => {
+export const Header = ({ translate, titleComponent }: HeaderProps) => {
   return (
     <motion.div
       style={{
@@ -99,7 +82,7 @@ export const Card = ({ rotate, scale }: CardProps) => {
         rotateX: rotate,
         scale,
         boxShadow:
-          '0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003',
+          "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
       }}
       className="max-w-5xl -mt-12 mx-auto h-[30rem] md:h-[40rem] w-full  p-6 bg-[#222222] rounded-[30px] shadow-2xl"
     >
