@@ -21,6 +21,6 @@ export default defineConfig({
   webServer: {
     command: 'bun run dev:test',
     port: 3001,
-    reuseExistingServer: false,
+    reuseExistingServer: !process.env.CI,
   },
 });
