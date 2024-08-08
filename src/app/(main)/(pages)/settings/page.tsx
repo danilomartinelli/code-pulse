@@ -4,10 +4,27 @@ import ProfileForm from '@/components/forms/profile-form';
 const Settings = async () => {
   // TODO: Replace all the following with real data
   const userImage = null;
-  const updateUserInfo = (_name: string) => false;
   const user = {
     name: 'John Doe',
     email: 'john.doe@email.com',
+  };
+
+  const updateUserInfo = async (name: string) => {
+    'use server';
+
+    // TODO: Do the actual update on the server
+    // const updateUser = await db.user.update({
+    //   where: {
+    //     clerkId: authUser.id,
+    //   },
+    //   data: {
+    //     name,
+    //   },
+    // });
+
+    // TODO: Replace the user with the updated user from the server
+    // return updateUser;
+    return user;
   };
 
   return (
