@@ -1,8 +1,14 @@
 import ProfilePictureWrapper from './_components/profile-picture-wrapper';
+import ProfileForm from '@/components/forms/profile-form';
 
 const Settings = async () => {
-  // TODO: Replace with actual user image data
+  // TODO: Replace all the following with real data
   const userImage = null;
+  const updateUserInfo = (_name: string) => false;
+  const user = {
+    name: 'John Doe',
+    email: 'john.doe@email.com',
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -17,6 +23,7 @@ const Settings = async () => {
           </p>
         </div>
         <ProfilePictureWrapper userImage={userImage} />
+        <ProfileForm user={user} onUpdate={updateUserInfo} />
       </div>
     </div>
   );
