@@ -4,17 +4,13 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-import dynamic from "next/dynamic";
+import UploadCareButton from "./uploadcare-button";
 
 type ProfilePictureProps = {
   userImage: string | null;
   onDelete?: any; // TODO: Replace with correct type
   onUpload: any; // TODO: Replace with correct type
 };
-
-const UploadCareButton = dynamic(() => import("./uploadcare-button"), {
-  ssr: false,
-});
 
 const ProfilePicture = ({
   userImage,
