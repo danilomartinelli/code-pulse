@@ -7,7 +7,7 @@ type ErrorProps = {
   reset: () => void;
 };
 
-export default function Error({ error, reset }: ErrorProps) {
+const ErrorPage = ({ error, reset }: ErrorProps) => {
   useEffect(() => {
     // TODO: Log the error to an error tracking service
   }, [error]);
@@ -28,4 +28,4 @@ export default function Error({ error, reset }: ErrorProps) {
       </button>
     </div>
   );
-}
+};
