@@ -17,10 +17,15 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 
-// TODO: Change any to actual user type from the API and onUpdate to a function
+// TODO: Replate this with the actual user type from database/prisma
+interface User {
+  name: string;
+  email: string;
+}
+
 type ProfileFormProps = {
-  user: any;
-  onUpdate?: any;
+  user: User;
+  onUpdate: (name: string) => Promise<User | null>;
 };
 
 const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {

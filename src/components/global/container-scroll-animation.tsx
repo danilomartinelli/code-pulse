@@ -88,7 +88,7 @@ export const Card = ({ rotate, scale }: CardProps) => {
     >
       <div className="bg-gray-100 h-full w-full rounded-2xl  gap-4 overflow-hidden p-4 transition-all ">
         <Image
-          src="/temp-banner.png" // TODO: replace with your image
+          src="/temp-banner.png"
           fill
           alt="bannerImage"
           className="object-cover border-8 rounded-2xl"
