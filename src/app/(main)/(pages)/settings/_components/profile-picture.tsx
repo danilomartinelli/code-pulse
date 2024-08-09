@@ -4,13 +4,9 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
-import UploadCareButton from "./uploadcare-button";
-
-// TODO: Replate this with the actual user type from database/prisma
-interface User {
-  name: string;
-  email: string;
-}
+import { User } from "@prisma/client";
+import UploadCareButton from "@/components/global/uploadcare-button";
+import { env } from "@/lib/env";
 
 type ProfilePictureProps = {
   userImage: string | null;
@@ -33,9 +29,16 @@ const ProfilePicture = ({
     }
   };
 
+  const handleUpload = async (cdnUrl: string) => {
+    const response = await onUpload(cdnUrl);
+    if (response) {
+      router.refresh();
+    }
+  };
+
   return (
     <div className="flex flex-col">
-      <p className="text-lg text-white"> Profile Picture</p>
+      <p className="text-lg text-white">Profile Picture</p>
       <div className="flex h-[30vh] flex-col items-center justify-center">
         {userImage ? (
           <>
@@ -50,7 +53,10 @@ const ProfilePicture = ({
             </Button>
           </>
         ) : (
-          <UploadCareButton onUpload={onUpload} />
+          <UploadCareButton
+            onUpload={handleUpload}
+            pubkey={env.NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY}
+          />
         )}
       </div>
     </div>

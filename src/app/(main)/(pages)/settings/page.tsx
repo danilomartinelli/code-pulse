@@ -1,67 +1,55 @@
 import ProfileForm from "@/components/forms/profile-form";
+import { db } from "@/lib/db";
+import { User } from "@prisma/client";
+import { getAuthenticatedDbUser } from "@/lib/server-utils";
 import ProfilePicture from "./_components/profile-picture";
 
-// TODO: Replate this with the actual user type from database/prisma
-interface User {
-  name: string;
-  email: string;
-}
-
 const Settings = async () => {
-  // TODO: Replace all the following with real data
-  const userImage: string | null = null;
-  const user: User = {
-    name: "John Doe",
-    email: "john.doe@email.com",
-  };
+  const dbUser = await getAuthenticatedDbUser();
 
   const removeProfileImage = async (): Promise<User | null> => {
     "use server";
 
-    // TODO: Do the actual delete on the server and return the updated user
-    // const response = await db.user.update({
-    //   where: {
-    //     clerkId: authUser.id,
-    //   },
-    //   data: {
-    //     profileImage: '',
-    //   },
-    // });
+    const response = await db.user.update({
+      where: {
+        clerkId: dbUser.clerkId,
+      },
+      data: {
+        profileImage: "",
+      },
+    });
 
-    return null;
+    return response;
   };
 
-  const uploadProfileImage = async (_image: string): Promise<User | null> => {
+  const uploadProfileImage = async (image: string): Promise<User | null> => {
     "use server";
 
-    // TODO: Do the actual upload on the server and return the updated user
-    // const id = authUser.id;
-    // const response = await db.user.update({
-    //   where: {
-    //     clerkId: id,
-    //   },
-    //   data: {
-    //     profileImage: image,
-    //   },
-    // });
+    const response = await db.user.update({
+      where: {
+        clerkId: dbUser.clerkId,
+      },
+      data: {
+        profileImage: image,
+      },
+    });
 
-    return null;
+    return response;
   };
 
-  const updateUserInfo = async (_name: string): Promise<User | null> => {
+  const updateUserInfo = async (name: string): Promise<User | null> => {
     "use server";
 
-    // TODO: Do the actual update on the server and return the updated user
-    // const updateUser = await db.user.update({
-    //   where: {
-    //     clerkId: authUser.id,
-    //   },
-    //   data: {
-    //     name,
-    //   },
-    // });
+    const updateUser = await db.user.update({
+      where: {
+        clerkId: dbUser.clerkId,
+      },
+      data: {
+        name,
+      },
+    });
 
-    return null;
+    return updateUser;
   };
 
   return (
@@ -78,10 +66,10 @@ const Settings = async () => {
         </div>
         <ProfilePicture
           onDelete={removeProfileImage}
-          userImage={userImage}
+          userImage={dbUser.profileImage}
           onUpload={uploadProfileImage}
         />
-        <ProfileForm user={user} onUpdate={updateUserInfo} />
+        <ProfileForm user={dbUser} onUpdate={updateUserInfo} />
       </div>
     </div>
   );

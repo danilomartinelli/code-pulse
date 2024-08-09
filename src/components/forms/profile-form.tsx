@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { EditUserProfileSchema } from "@/lib/types";
+import { EditUserProfileData, EditUserProfileSchema } from "@/lib/types";
 import {
   Form,
   FormControl,
@@ -16,12 +16,7 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
-
-// TODO: Replate this with the actual user type from database/prisma
-interface User {
-  name: string;
-  email: string;
-}
+import { User } from "@prisma/client";
 
 type ProfileFormProps = {
   user: User;
@@ -35,14 +30,12 @@ const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
     mode: "onChange",
     resolver: zodResolver(EditUserProfileSchema),
     defaultValues: {
-      name: user.name,
+      name: user.name ?? "",
       email: user.email,
     },
   });
 
-  const handleSubmit = async (
-    values: z.infer<typeof EditUserProfileSchema>,
-  ) => {
+  const handleSubmit = async (values: EditUserProfileData) => {
     setIsLoading(true);
     await onUpdate(values.name);
     setIsLoading(false);
@@ -53,7 +46,7 @@ const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
     const currentEmail = form.getValues("email");
 
     if (currentName !== user.name || currentEmail !== user.email) {
-      form.reset({ name: user.name, email: user.email });
+      form.reset({ name: user.name ?? "", email: user.email });
     }
   }, [user, form]);
 

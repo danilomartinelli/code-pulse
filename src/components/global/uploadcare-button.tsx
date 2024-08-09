@@ -2,26 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as UC from "@uploadcare/file-uploader";
-import { useRouter } from "next/navigation";
 import Spinner from "@/components/global/spinner";
 import { createEventListener } from "@/lib/utils";
 
-// TODO: Replate this with the actual user type from database/prisma
-interface User {
-  name: string;
-  email: string;
-}
-
 type UploadCareButtonProps = {
-  onUpload: (cdnUrl: string) => Promise<User | null>;
+  onUpload: (cdnUrl: string) => void;
+  pubkey: string;
 };
 
 type UploadcareSuccessEvent = CustomEvent<{ cdnUrl: string }>;
 
 UC.defineComponents(UC);
 
-const UploadCareButton = ({ onUpload }: UploadCareButtonProps) => {
-  const router = useRouter();
+const UploadCareButton = ({ onUpload, pubkey }: UploadCareButtonProps) => {
   const ctxProviderRef = useRef<
     typeof UC.UploadCtxProvider.prototype & UC.UploadCtxProvider
   >(null);
@@ -33,11 +26,8 @@ const UploadCareButton = ({ onUpload }: UploadCareButtonProps) => {
     let uploadContext: typeof UC.UploadCtxProvider.prototype &
       UC.UploadCtxProvider;
 
-    const handleUpload = async (e: UploadcareSuccessEvent) => {
-      const file = await onUpload(e.detail.cdnUrl);
-      if (file) {
-        router.refresh();
-      }
+    const handleUpload = (e: UploadcareSuccessEvent) => {
+      onUpload(e.detail.cdnUrl);
     };
 
     if (ctxProviderRef.current) {
@@ -56,7 +46,7 @@ const UploadCareButton = ({ onUpload }: UploadCareButtonProps) => {
         );
       }
     };
-  }, [onUpload, router]);
+  }, [onUpload]);
 
   if (!isClient) {
     return <Spinner size="large" />;
@@ -64,7 +54,7 @@ const UploadCareButton = ({ onUpload }: UploadCareButtonProps) => {
 
   return (
     <div>
-      <uc-config ctx-name="uploader" pubkey="f453a6e2fd77512b8a4c" />
+      <uc-config ctx-name="uploader" pubkey={pubkey} />
       <uc-file-uploader-regular ctx-name="uploader" />
       <uc-upload-ctx-provider ctx-name="uploader" ref={ctxProviderRef} />
     </div>
