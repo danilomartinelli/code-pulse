@@ -6,10 +6,16 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import UploadCareButton from "./uploadcare-button";
 
+// TODO: Replate this with the actual user type from database/prisma
+interface User {
+  name: string;
+  email: string;
+}
+
 type ProfilePictureProps = {
   userImage: string | null;
-  onDelete?: any; // TODO: Replace with correct type
-  onUpload: any; // TODO: Replace with correct type
+  onDelete: () => Promise<User | null>;
+  onUpload: (image: string) => Promise<User | null>;
 };
 
 const ProfilePicture = ({

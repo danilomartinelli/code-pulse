@@ -1,18 +1,57 @@
-import ProfilePictureWrapper from "./_components/profile-picture-wrapper";
 import ProfileForm from "@/components/forms/profile-form";
+import ProfilePicture from "./_components/profile-picture";
+
+// TODO: Replate this with the actual user type from database/prisma
+interface User {
+  name: string;
+  email: string;
+}
 
 const Settings = async () => {
   // TODO: Replace all the following with real data
-  const userImage = null;
-  const user = {
+  const userImage: string | null = null;
+  const user: User = {
     name: "John Doe",
     email: "john.doe@email.com",
   };
 
-  const updateUserInfo = async (name: string) => {
+  const removeProfileImage = async (): Promise<User | null> => {
     "use server";
 
-    // TODO: Do the actual update on the server
+    // TODO: Do the actual delete on the server and return the updated user
+    // const response = await db.user.update({
+    //   where: {
+    //     clerkId: authUser.id,
+    //   },
+    //   data: {
+    //     profileImage: '',
+    //   },
+    // });
+
+    return null;
+  };
+
+  const uploadProfileImage = async (_image: string): Promise<User | null> => {
+    "use server";
+
+    // TODO: Do the actual upload on the server and return the updated user
+    // const id = authUser.id;
+    // const response = await db.user.update({
+    //   where: {
+    //     clerkId: id,
+    //   },
+    //   data: {
+    //     profileImage: image,
+    //   },
+    // });
+
+    return null;
+  };
+
+  const updateUserInfo = async (_name: string): Promise<User | null> => {
+    "use server";
+
+    // TODO: Do the actual update on the server and return the updated user
     // const updateUser = await db.user.update({
     //   where: {
     //     clerkId: authUser.id,
@@ -22,9 +61,7 @@ const Settings = async () => {
     //   },
     // });
 
-    // TODO: Replace the user with the updated user from the server
-    // return updateUser;
-    return user;
+    return null;
   };
 
   return (
@@ -39,7 +76,11 @@ const Settings = async () => {
             Add or update your information
           </p>
         </div>
-        <ProfilePictureWrapper userImage={userImage} />
+        <ProfilePicture
+          onDelete={removeProfileImage}
+          userImage={userImage}
+          onUpload={uploadProfileImage}
+        />
         <ProfileForm user={user} onUpdate={updateUserInfo} />
       </div>
     </div>

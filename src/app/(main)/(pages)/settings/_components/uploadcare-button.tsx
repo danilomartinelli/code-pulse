@@ -3,14 +3,24 @@
 import { useEffect, useRef, useState } from "react";
 import * as UC from "@uploadcare/file-uploader";
 import { useRouter } from "next/navigation";
+import Spinner from "@/components/global/spinner";
+import { createEventListener } from "@/lib/utils";
 
-type UploadCareButton = {
-  onUpload: (e: string) => any; // TODO: Replace with correct type
+// TODO: Replate this with the actual user type from database/prisma
+interface User {
+  name: string;
+  email: string;
+}
+
+type UploadCareButtonProps = {
+  onUpload: (cdnUrl: string) => Promise<User | null>;
 };
+
+type UploadcareSuccessEvent = CustomEvent<{ cdnUrl: string }>;
 
 UC.defineComponents(UC);
 
-const UploadCareButton = ({ onUpload }: UploadCareButton) => {
+const UploadCareButton = ({ onUpload }: UploadCareButtonProps) => {
   const router = useRouter();
   const ctxProviderRef = useRef<
     typeof UC.UploadCtxProvider.prototype & UC.UploadCtxProvider
@@ -23,8 +33,7 @@ const UploadCareButton = ({ onUpload }: UploadCareButton) => {
     let uploadContext: typeof UC.UploadCtxProvider.prototype &
       UC.UploadCtxProvider;
 
-    // TODO: Replace with correct type
-    const handleUpload = async (e: any) => {
+    const handleUpload = async (e: UploadcareSuccessEvent) => {
       const file = await onUpload(e.detail.cdnUrl);
       if (file) {
         router.refresh();
@@ -33,18 +42,24 @@ const UploadCareButton = ({ onUpload }: UploadCareButton) => {
 
     if (ctxProviderRef.current) {
       uploadContext = ctxProviderRef.current;
-      uploadContext.addEventListener("file-upload-success", handleUpload);
+      uploadContext.addEventListener(
+        "file-upload-success",
+        createEventListener<UploadcareSuccessEvent>(handleUpload),
+      );
     }
 
     return () => {
       if (uploadContext) {
-        uploadContext.removeEventListener("file-upload-success", handleUpload);
+        uploadContext.removeEventListener(
+          "file-upload-success",
+          createEventListener<UploadcareSuccessEvent>(handleUpload),
+        );
       }
     };
   }, [onUpload, router]);
 
   if (!isClient) {
-    return null; // TODO: Loading spinner or placeholder
+    return <Spinner size="large" />;
   }
 
   return (
