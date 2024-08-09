@@ -1,5 +1,7 @@
 # Code Pulse
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=danilomartinelli_code-pulse&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=danilomartinelli_code-pulse)
+
 Code Pulse is a SAAS workflow automation platform designed specifically for product professionals, such as product managers. Inspired by n8n, our tool offers a secure and AI-driven experience for creating and managing complex automations intuitively.
 
 ## Core Technologies
