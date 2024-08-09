@@ -16,6 +16,7 @@ export const env = createEnv({
     NEXT_PUBLIC_URL: z.string().url(),
     NEXT_PUBLIC_DOMAIN: z.string().min(1),
     NEXT_PUBLIC_SCHEME: z.string().min(1),
+    NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY: z.string().min(1),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
@@ -29,5 +30,7 @@ export const env = createEnv({
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
     NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
     NEXT_PUBLIC_SCHEME: process.env.NEXT_PUBLIC_SCHEME,
+    NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY:
+      process.env.NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY,
   },
 });
