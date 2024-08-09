@@ -49,7 +49,7 @@ const UploadCareButton = ({ onUpload }: UploadCareButton) => {
 
   return (
     <div>
-      <uc-config ctx-name="uploader" pubkey="b0cde9d61c2b2fb2b440" />
+      <uc-config ctx-name="uploader" pubkey="f453a6e2fd77512b8a4c" />
       <uc-file-uploader-regular ctx-name="uploader" />
       <uc-upload-ctx-provider ctx-name="uploader" ref={ctxProviderRef} />
     </div>
