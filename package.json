@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --experimental-https",
-    "dev:test": "next dev --port 3001",
+    "dev": "next dev",
+    "dev:test": "next dev --port 2000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
