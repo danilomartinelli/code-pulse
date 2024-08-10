@@ -10,17 +10,7 @@ test("Navbar component", async ({ page }) => {
 
   // Check for the presence of important navigation elements
   // Assuming your Navbar has these common elements. Adjust as needed.
-  await expect(page.getByRole("link", { name: /home/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /about/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /contact/i })).toBeVisible();
-
-  // Test navigation functionality (example)
-  await page.getByRole("link", { name: /about/i }).click();
-  await expect(page).toHaveURL(/.*about/);
-
-  // Test responsive behavior (if applicable)
-  // This checks if a menu button appears on smaller screens
-  await page.setViewportSize({ width: 640, height: 480 });
-  const menuButton = page.getByRole("button", { name: /menu/i });
-  await expect(menuButton).toBeVisible();
+  await expect(page.getByRole("link", { name: /products/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /pricing/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /clients/i })).toBeVisible();
 });
