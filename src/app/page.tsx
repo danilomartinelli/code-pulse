@@ -6,10 +6,10 @@ import Navbar from "@/components/global/navbar";
 import { clients, commonFeatures, products } from "@/lib/constants";
 import PricingCard from "./_components/pricing-card";
 import GradientButton from "./_components/gradient-button";
-import { getAuthenticatedDbUser } from "@/lib/server-utils";
+import { getOptionalDbUser } from "@/lib/server-utils";
 
 export default async function Home() {
-  const user = await getAuthenticatedDbUser();
+  const user = await getOptionalDbUser();
 
   return (
     <main className="flex items-center justify-center flex-col">

@@ -9,19 +9,9 @@ class AuthenticationError extends Error {
   }
 }
 
-export async function getAuthenticatedDbUser(): Promise<User> {
-  const clerkUser = await currentUser();
-
-  // The middleware ensures this route is only accessible to authenticated users.
-  // Therefore, we can assume that authUser will always be available.
-  // However, TypeScript may still consider authUser potentially null,
-  // so we perform a null check to satisfy the type system.
-  if (!clerkUser) {
-    throw new AuthenticationError("User not authenticated");
-  }
-
+async function findAndValidateUser(clerkUserId: string): Promise<User> {
   const user = await db.user.findUnique({
-    where: { clerkId: clerkUser.id },
+    where: { clerkId: clerkUserId },
   });
 
   // NOTE: This redirect should never occur in normal circumstances.
@@ -39,4 +29,28 @@ export async function getAuthenticatedDbUser(): Promise<User> {
   }
 
   return user;
+}
+
+export async function getAuthenticatedDbUser(): Promise<User> {
+  const clerkUser = await currentUser();
+
+  // The middleware ensures this route is only accessible to authenticated users.
+  // Therefore, we can assume that authUser will always be available.
+  // However, TypeScript may still consider authUser potentially null,
+  // so we perform a null check to satisfy the type system.
+  if (!clerkUser) {
+    throw new AuthenticationError("User not authenticated");
+  }
+
+  return findAndValidateUser(clerkUser.id);
+}
+
+export async function getOptionalDbUser(): Promise<User | null> {
+  const clerkUser = await currentUser();
+
+  if (!clerkUser) {
+    return null;
+  }
+
+  return findAndValidateUser(clerkUser.id);
 }

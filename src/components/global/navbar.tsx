@@ -4,7 +4,7 @@ import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 
 type NavbarProps = {
-  user: User;
+  user?: User | null;
 };
 
 const Navbar = async ({ user }: NavbarProps) => {
