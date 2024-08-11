@@ -1,7 +1,13 @@
+import { UserButton } from "@clerk/nextjs";
+import { User } from "@prisma/client";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 
-const Navbar = async () => {
+type NavbarProps = {
+  user: User;
+};
+
+const Navbar = async ({ user }: NavbarProps) => {
   return (
     <header className="fixed right-0 left-0 top-0 py-4 px-4 bg-black/40 backdrop-blur-lg z-[100] flex items-center border-b-[1px] border-neutal-900 justify-between">
       <aside className="flex items-center gap-[2px]">
@@ -36,11 +42,10 @@ const Navbar = async () => {
         >
           <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
           <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
-            {/* TODO: Wire up user  */}
-            {true ? "Dashboard" : "Get Started"}
+            {user ? "Dashboard" : "Get Started"}
           </span>
         </Link>
-        {/* TODO: Wire up user */}
+        {user ? <UserButton /> : null}
         <MenuIcon className="md:hidden" />
       </aside>
     </header>

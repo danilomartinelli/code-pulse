@@ -8,17 +8,18 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { UserButton } from "@clerk/nextjs";
 
-const InfoBar = () => {
-  const tier = "Free"; // TODO: Get tier from API
-  const credits = 5; // TODO: Get credits from API
+type InfoBarProps = {
+  tier: string;
+  credits: number;
+};
 
+const InfoBar = ({ tier, credits }: InfoBarProps) => {
   return (
     <div className="flex flex-row justify-end gap-6 items-center px-4 py-4 w-full dark:bg-black ">
       <span className="flex items-center gap-2 font-bold">
         <p className="text-sm font-light text-gray-300">Credits</p>
-        {/* TODO: Remember to remove 'ts-ignore' when the tier is no longer a mock */}
-        {/* @ts-ignore */}
         {tier !== "Unlimited" ? (
           <span>
             {credits}/{tier == "Free" ? "10" : tier == "Pro" && "100"}
@@ -54,8 +55,7 @@ const InfoBar = () => {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      {/* TODO: Add a UserButton component from the Clerk SDK */}
-      {/* <UserButton /> */}
+      <UserButton />
     </div>
   );
 };

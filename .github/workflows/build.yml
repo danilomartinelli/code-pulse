@@ -46,20 +46,6 @@ jobs:
       - name: Run Playwright tests with coverage
         run: bunx c8 -o ./coverage --reporter=lcov playwright test
 
-      # TODO: Uncomment the following lines to run accessibility tests and Lighthouse CI
-      #
-      # - name: Run accessibility tests
-      #   run: |
-      #     bun add -g pa11y-ci
-      #     bunx pa11y-ci
-      #
-      # - name: Run Lighthouse CI
-      #   uses: treosh/lighthouse-ci-action@v9
-      #   with:
-      #     configPath: './lighthouse-config.json'
-      #     uploadArtifacts: true
-      #     temporaryPublicStorage: true
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
