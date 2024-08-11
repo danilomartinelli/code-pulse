@@ -2,7 +2,7 @@
 
 import { CardBody, CardContainer, CardItem } from "@/components/global/3d-card";
 import { CheckIcon } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export type Feature = {
   id: string;
