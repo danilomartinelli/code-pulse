@@ -1,6 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const ignoredRoutes = createRouteMatcher([
+const isPublicRoute = createRouteMatcher([
   "/",
   "/api/clerk-webhook",
   "/api/drive-activity/notification",
@@ -10,10 +10,12 @@ const ignoredRoutes = createRouteMatcher([
   "/api/auth/callback/slack",
   "/api/flow",
   "/api/cron/wait",
+  "/sign-in(.*)",
+  "/sign-up(.*)",
 ]);
 
 export default clerkMiddleware((auth, request) => {
-  if (!ignoredRoutes(request)) {
+  if (!isPublicRoute(request)) {
     auth().protect();
   }
 });
@@ -24,7 +26,5 @@ export const config = {
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
     // Always run for API routes
     "/(api|trpc)(.*)",
-    // Always run for the root page
-    "/",
   ],
 };
