@@ -2,6 +2,7 @@
 
 import { CardBody, CardContainer, CardItem } from "@/components/global/3d-card";
 import { CheckIcon } from "lucide-react";
+import { useRouter } from "next/router";
 
 export type Feature = {
   id: string;
@@ -21,6 +22,8 @@ const PricingCard = ({
   features,
   highlightBorder = false,
 }: PricingCardProps) => {
+  const router = useRouter();
+
   return (
     <CardContainer className="inter-var">
       <CardBody
@@ -56,7 +59,7 @@ const PricingCard = ({
             as="span"
             className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white cursor-pointer"
             onClick={() => {
-              // TODO: Add action here
+              router.push("/dashboard");
             }}
           >
             Try now →
@@ -66,7 +69,7 @@ const PricingCard = ({
             as="span"
             className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold cursor-pointer"
             onClick={() => {
-              // TODO: Add action here
+              router.push("/dashboard");
             }}
           >
             Get Started Now

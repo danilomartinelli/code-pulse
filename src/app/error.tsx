@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import * as Sentry from "@sentry/nextjs";
 
 type ErrorProps = {
   error: Error & { digest?: string };
@@ -9,7 +10,7 @@ type ErrorProps = {
 
 const ErrorPage = ({ error, reset }: ErrorProps) => {
   useEffect(() => {
-    // TODO: Log the error to an error tracking service
+    Sentry.captureException(error);
   }, [error]);
 
   return (
@@ -28,3 +29,5 @@ const ErrorPage = ({ error, reset }: ErrorProps) => {
     </div>
   );
 };
+
+export default ErrorPage;
