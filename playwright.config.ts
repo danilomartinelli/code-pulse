@@ -10,7 +10,9 @@ export default defineConfig({
   use: {
     headless: true,
     baseURL: "http://localhost:2000",
-    trace: "on-first-retry",
+    trace: process.env.CI ? "off" : "retain-on-first-failure",
+    screenshot: process.env.CI ? "off" : "only-on-failure",
+    video: process.env.CI ? "off" : "on",
   },
   projects: [
     {
@@ -22,5 +24,8 @@ export default defineConfig({
     command: "bun run dev:test",
     port: 2000,
     reuseExistingServer: !process.env.CI,
+    env: {
+      NODE_ENV: "test",
+    },
   },
 });

@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "lint-format-all": "eslint --fix . && prettier --write \"**/*.{js,jsx,ts,tsx}\"",
-    "test": "NODE_ENV=test playwright test",
+    "test": "playwright test",
     "prepare": "node .husky/install.mjs",
     "postinstall": "prisma generate"
   },

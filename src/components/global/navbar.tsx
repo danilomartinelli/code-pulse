@@ -13,7 +13,10 @@ const Navbar = async ({ user }: NavbarProps) => {
       <aside className="flex items-center gap-[2px]">
         <p className="text-3xl font-bold">Code Pulse</p>
       </aside>
-      <nav className="absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%] hidden md:block">
+      <nav
+        role="navigation"
+        className="absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%] hidden md:block"
+      >
         <ul className="flex items-center gap-4 list-none">
           <li>
             <Link href="#">Products</Link>
