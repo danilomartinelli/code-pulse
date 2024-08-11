@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as UC from "@uploadcare/file-uploader";
-import Spinner from "@/components/global/spinner";
+import Spinner from "@/components/shared/spinner";
 import { createEventListener } from "@/lib/utils";
 
 type UploadCareButtonProps = {

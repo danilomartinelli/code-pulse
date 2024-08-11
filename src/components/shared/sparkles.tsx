@@ -7,7 +7,7 @@ import { loadSlim } from "@tsparticles/slim";
 import { motion, useAnimation } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-type ParticlesProps = {
+type SparklesProps = {
   id?: string;
   className?: string;
   background?: string;
@@ -18,7 +18,7 @@ type ParticlesProps = {
   particleDensity?: number;
 };
 
-export const SparklesCore = (props: ParticlesProps) => {
+export const Sparkles = (props: SparklesProps) => {
   const {
     id,
     className,
@@ -30,6 +30,8 @@ export const SparklesCore = (props: ParticlesProps) => {
     particleDensity,
   } = props;
   const [init, setInit] = useState(false);
+  const controls = useAnimation();
+
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
@@ -37,7 +39,6 @@ export const SparklesCore = (props: ParticlesProps) => {
       setInit(true);
     });
   }, []);
-  const controls = useAnimation();
 
   const particlesLoaded = async (container?: Container) => {
     if (container) {

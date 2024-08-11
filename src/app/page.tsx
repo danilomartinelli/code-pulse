@@ -1,12 +1,12 @@
-import { HeroParallax } from "@/components/global/connect-parallax";
-import { ContainerScroll } from "@/components/global/container-scroll-animation";
-import { InfiniteMovingCards } from "@/components/global/infinite-moving-cards";
-import { LampComponent } from "@/components/global/lamp";
-import Navbar from "@/components/global/navbar";
+import Lamp from "./_components/lamp";
+import Navbar from "./_components/navbar";
 import { clients, commonFeatures, products } from "@/lib/constants";
 import PricingCard from "./_components/pricing-card";
 import GradientButton from "./_components/gradient-button";
 import { getOptionalDbUser } from "@/lib/server-utils";
+import HeroParallax from "./_components/hero-parallax";
+import InfiniteMovingCards from "./_components/infinite-moving-cards";
+import ContainerScroll from "./_components/container-scroll";
 
 export default async function Home() {
   const user = await getOptionalDbUser();
@@ -39,7 +39,7 @@ export default async function Home() {
         <HeroParallax products={products}></HeroParallax>
       </section>
       <section className="mt-[-500px]">
-        <LampComponent />
+        <Lamp />
         <div className="flex flex-wrap items-center justify-center flex-col md:flex-row gap-8 -mt-72">
           <PricingCard title="Hobby" price="$0" features={commonFeatures} />
           <PricingCard

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { User } from "@prisma/client";
-import UploadCareButton from "@/components/global/uploadcare-button";
+import UploadCareButton from "@/components/shared/uploadcare-button";
 import { env } from "@/lib/env";
 
 type ProfilePictureProps = {

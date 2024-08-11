@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import {
+import React, {
   createContext,
   useState,
   useContext,
@@ -13,23 +13,30 @@ import {
   useCallback,
 } from "react";
 
-type CardContainerProps = {
-  children?: React.ReactNode;
-  className?: string;
-  containerClassName?: string;
-};
-
 type MouseEnterContextType = [boolean, Dispatch<SetStateAction<boolean>>];
 
 const MouseEnterContext = createContext<MouseEnterContextType | undefined>(
   undefined,
 );
 
-export const CardContainer = ({
-  children,
-  className,
-  containerClassName,
-}: CardContainerProps) => {
+const useMouseEnter = () => {
+  const context = useContext(MouseEnterContext);
+  if (context === undefined) {
+    throw new Error("useMouseEnter must be used within a MouseEnterProvider");
+  }
+  return context;
+};
+
+type Card3DProps = {
+  children: React.ReactNode;
+  className?: string;
+  containerClassName?: string;
+};
+
+const Card3D: React.FC<Card3DProps> & {
+  Body: typeof Body;
+  Item: typeof Item;
+} = ({ children, className, containerClassName }) => {
   const containerRef = useRef<HTMLButtonElement>(null);
   const [isMouseEntered, setIsMouseEntered] = useState(false);
   const contextValue = useMemo(
@@ -60,9 +67,7 @@ export const CardContainer = ({
     <MouseEnterContext.Provider value={contextValue}>
       <div
         className={cn("flex items-center justify-center", containerClassName)}
-        style={{
-          perspective: "1000px",
-        }}
+        style={{ perspective: "1000px" }}
       >
         <button
           ref={containerRef}
@@ -73,9 +78,7 @@ export const CardContainer = ({
             "flex items-center justify-center relative transition-all duration-200 ease-linear",
             className,
           )}
-          style={{
-            transformStyle: "preserve-3d",
-          }}
+          style={{ transformStyle: "preserve-3d" }}
         >
           {children}
         </button>
@@ -84,16 +87,14 @@ export const CardContainer = ({
   );
 };
 
-type CardBodyProps = {
+const Body: React.FC<{
   children: React.ReactNode;
   className?: string;
-};
-
-export const CardBody = ({ children, className }: CardBodyProps) => {
+}> = ({ children, className }) => {
   return (
     <div
       className={cn(
-        "h-96 w-96 [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]",
+        "h-96 w-96 [transform-style:preserve-3d] [&>*]:[transform-style:preserve-3d]",
         className,
       )}
     >
@@ -102,7 +103,7 @@ export const CardBody = ({ children, className }: CardBodyProps) => {
   );
 };
 
-type CardItemProps = {
+type ItemProps = {
   as?: React.ElementType;
   children: React.ReactNode;
   className?: string;
@@ -115,7 +116,7 @@ type CardItemProps = {
   onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 };
 
-export const CardItem = ({
+const Item: React.FC<ItemProps> = ({
   as: Tag = "div",
   children,
   className,
@@ -127,7 +128,7 @@ export const CardItem = ({
   rotateZ = 0,
   onClick,
   ...rest
-}: CardItemProps) => {
+}) => {
   const ref = useRef<HTMLElement>(null);
   const [isMouseEntered] = useMouseEnter();
   const isButton = Tag === "button";
@@ -172,11 +173,7 @@ export const CardItem = ({
   );
 };
 
-// Create a hook to use the context
-export const useMouseEnter = () => {
-  const context = useContext(MouseEnterContext);
-  if (context === undefined) {
-    throw new Error("useMouseEnter must be used within a MouseEnterProvider");
-  }
-  return context;
-};
+Card3D.Body = Body;
+Card3D.Item = Item;
+
+export default Card3D;

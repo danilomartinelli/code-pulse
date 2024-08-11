@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export function ModeToggle() {
+const LightModeToggle = () => {
   const { setTheme } = useTheme();
 
   return (
@@ -35,4 +35,6 @@ export function ModeToggle() {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};
+
+export default LightModeToggle;

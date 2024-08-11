@@ -12,9 +12,9 @@ import { menuOptions } from "@/lib/constants";
 import clsx from "clsx";
 import { Separator } from "@/components/ui/separator";
 import { Database, GitBranch, LucideMousePointerClick } from "lucide-react";
-import { ModeToggle } from "@/components/global/mode-toggle";
+import LightModeToggle from "./light-mode-toggle";
 
-const MenuOptions = () => {
+const Sidebar = () => {
   const pathName = usePathname();
 
   return (
@@ -75,10 +75,10 @@ const MenuOptions = () => {
         </div>
       </div>
       <div className="flex items-center justify-center flex-col gap-8">
-        <ModeToggle />
+        <LightModeToggle />
       </div>
     </nav>
   );
 };
 
-export default MenuOptions;
+export default Sidebar;

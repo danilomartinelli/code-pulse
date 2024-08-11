@@ -2,34 +2,14 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { SparklesCore } from "./sparkles";
-
-export function LampComponent() {
-  return (
-    <LampContainer>
-      <motion.h1
-        initial={{ opacity: 0.5, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-        className="mt-20 bg-gradient-to-br from-neutral-300 to-neutral-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
-      >
-        Plans That
-        <br /> Fit You Best
-      </motion.h1>
-    </LampContainer>
-  );
-}
+import { Sparkles } from "@/components/shared/sparkles";
 
 type LampContainerProps = {
   children: React.ReactNode;
   className?: string;
 };
 
-export const LampContainer = ({ children, className }: LampContainerProps) => {
+const Container = ({ children, className }: LampContainerProps) => {
   return (
     <div
       className={cn(
@@ -95,7 +75,7 @@ export const LampContainer = ({ children, className }: LampContainerProps) => {
         ></motion.div>
 
         <div className="w-[40rem] h-40 relative">
-          <SparklesCore
+          <Sparkles
             background="transparent"
             minSize={0.4}
             maxSize={1}
@@ -114,3 +94,25 @@ export const LampContainer = ({ children, className }: LampContainerProps) => {
     </div>
   );
 };
+
+const Lamp = () => {
+  return (
+    <Container>
+      <motion.h1
+        initial={{ opacity: 0.5, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 0.3,
+          duration: 0.8,
+          ease: "easeInOut",
+        }}
+        className="mt-20 bg-gradient-to-br from-neutral-300 to-neutral-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
+      >
+        Plans That
+        <br /> Fit You Best
+      </motion.h1>
+    </Container>
+  );
+};
+
+export default Lamp;

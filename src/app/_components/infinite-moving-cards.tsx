@@ -16,7 +16,7 @@ type InfiniteMovingCardsProps = {
   className?: string;
 };
 
-export const InfiniteMovingCards = ({
+const InfiniteMovingCards = ({
   items,
   direction = "left",
   speed = "fast",
@@ -101,3 +101,5 @@ export const InfiniteMovingCards = ({
     </div>
   );
 };
+
+export default InfiniteMovingCards;
