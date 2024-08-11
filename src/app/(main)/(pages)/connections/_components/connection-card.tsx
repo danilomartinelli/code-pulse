@@ -11,7 +11,6 @@ import { Connection, ConnectionType } from "@/lib/constants";
 
 type ConnectionCardProps = {
   connection: Connection;
-  callback?: () => void;
   connected: Record<ConnectionType, boolean>;
 };
 

@@ -32,27 +32,36 @@ export type ConnectionParams = {
   team_name: string;
 };
 
+const connectionParamsKeys = [
+  "webhook_id",
+  "webhook_name",
+  "webhook_url",
+  "guild_id",
+  "guild_name",
+  "channel_id",
+  "access_token",
+  "workspace_name",
+  "workspace_icon",
+  "workspace_id",
+  "database_id",
+  "app_id",
+  "authed_user_id",
+  "authed_user_token",
+  "slack_access_token",
+  "bot_user_id",
+  "team_id",
+  "team_name",
+];
+
 export function getConnectionParams(
   searchParams: URLSearchParams,
 ): ConnectionParams {
-  return {
-    webhook_id: searchParams.get("webhook_id") ?? "",
-    webhook_name: searchParams.get("webhook_name") ?? "",
-    webhook_url: searchParams.get("webhook_url") ?? "",
-    guild_id: searchParams.get("guild_id") ?? "",
-    guild_name: searchParams.get("guild_name") ?? "",
-    channel_id: searchParams.get("channel_id") ?? "",
-    access_token: searchParams.get("access_token") ?? "",
-    workspace_name: searchParams.get("workspace_name") ?? "",
-    workspace_icon: searchParams.get("workspace_icon") ?? "",
-    workspace_id: searchParams.get("workspace_id") ?? "",
-    database_id: searchParams.get("database_id") ?? "",
-    app_id: searchParams.get("app_id") ?? "",
-    authed_user_id: searchParams.get("authed_user_id") ?? "",
-    authed_user_token: searchParams.get("authed_user_token") ?? "",
-    slack_access_token: searchParams.get("slack_access_token") ?? "",
-    bot_user_id: searchParams.get("bot_user_id") ?? "",
-    team_id: searchParams.get("team_id") ?? "",
-    team_name: searchParams.get("team_name") ?? "",
-  };
+  const connectionParams: Partial<ConnectionParams> = {};
+
+  connectionParamsKeys.forEach((key) => {
+    connectionParams[key as keyof ConnectionParams] =
+      searchParams.get(key) ?? "";
+  });
+
+  return connectionParams as ConnectionParams;
 }
