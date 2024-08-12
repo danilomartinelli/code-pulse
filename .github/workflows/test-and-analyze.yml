@@ -71,6 +71,13 @@ jobs:
         if: success()
         run: bunx c8 report --reporter=text-lcov > coverage/lcov.info
 
+      - name: Upload coverage artifacts
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: coverage/lcov.info
+
   accessibility:
     name: Run Accessibility Tests
     runs-on: ubuntu-latest
@@ -112,13 +119,29 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+      - name: Download coverage artifacts
+        uses: actions/download-artifact@v3
+        continue-on-error: true
+        with:
+          name: coverage
+
       - name: Upload Coverage to SonarCloud
         if: success()
         run: |
-          bunx c8 report --reporter=text-lcov | bunx sonar-scanner \
-          -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-          -Dsonar.organization=$SONAR_ORGANIZATION \
-          -Dsonar.sources=. \
-          -Dsonar.tests=src \
-          -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info \
-          -Dsonar.test.inclusions="**/*.spec.ts,**/*.test.ts"
+          if [ -f lcov.info ]; then
+            bunx sonar-scanner \
+            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+            -Dsonar.organization=$SONAR_ORGANIZATION \
+            -Dsonar.sources=. \
+            -Dsonar.tests=src \
+            -Dsonar.typescript.lcov.reportPaths=lcov.info \
+            -Dsonar.test.inclusions="**/*.spec.ts,**/*.test.ts"
+          else
+            echo "Coverage file not found. Skipping coverage upload."
+            bunx sonar-scanner \
+            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+            -Dsonar.organization=$SONAR_ORGANIZATION \
+            -Dsonar.sources=. \
+            -Dsonar.tests=src \
+            -Dsonar.test.inclusions="**/*.spec.ts,**/*.test.ts"
+          fi
