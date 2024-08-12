@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { EditUserProfileData, EditUserProfileSchema } from "@/lib/types";
 import {
   Form,
   FormControl,
@@ -17,25 +16,38 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { User } from "@prisma/client";
+import { CompleteUser, updateUserParams } from "@/lib/database/schemas/user";
 
 type ProfileFormProps = {
-  user: User;
-  onUpdate: (name: string) => Promise<User | null>;
+  user: Pick<User, "name" | "email">;
+  onUpdate: (name: string) => Promise<CompleteUser | null>;
 };
+
+// At the form level, we extend the updateUserParams schema to include the name field as required.
+// This is because we want to ensure that the name field is always present when updating a user.
+// We then infer the type of the schema to create a ProfileFormSchema type.
+// The email field is read only and cannot be updated at the api level.
+// But we still include it in the form to display the user's email as a reference.
+const profileFormSchema = updateUserParams.extend({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email(),
+});
+
+type ProfileFormSchema = z.infer<typeof profileFormSchema>;
 
 const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof EditUserProfileSchema>>({
+  const form = useForm<ProfileFormSchema>({
     mode: "onChange",
-    resolver: zodResolver(EditUserProfileSchema),
+    resolver: zodResolver(updateUserParams),
     defaultValues: {
       name: user.name ?? "",
       email: user.email,
     },
   });
 
-  const handleSubmit = async (values: EditUserProfileData) => {
+  const onSubmit = async (values: ProfileFormSchema) => {
     setIsLoading(true);
     await onUpdate(values.name);
     setIsLoading(false);
@@ -54,7 +66,7 @@ const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
     <Form {...form}>
       <form
         className="flex flex-col gap-6"
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
           disabled={isLoading}

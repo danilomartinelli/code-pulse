@@ -1,13 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
-import { db } from "./db";
+import { db } from "../database";
 import { User } from "@prisma/client";
-
-class AuthenticationError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "AuthenticationError";
-  }
-}
+import { AuthenticationError } from "./custom-errors";
 
 async function findAndValidateUser(clerkUserId: string): Promise<User> {
   const user = await db.user.findUnique({
@@ -54,4 +48,30 @@ export async function getOptionalDbUser(): Promise<User | null> {
   }
 
   return findAndValidateUser(clerkUser.id);
+}
+
+export function getBaseUrl(): string {
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  if (process.env.NEXT_PUBLIC_URL) {
+    const publicUrl = process.env.NEXT_PUBLIC_URL.trim();
+    if (!publicUrl.startsWith("http")) {
+      throw new Error('NEXT_PUBLIC_URL must start with "http" or "https".');
+    }
+    return publicUrl;
+  }
+
+  return "http://localhost:3000";
+}
+
+export function getErrorMessage(e: unknown) {
+  const errMsg = "Error, please try again.";
+  if (e instanceof Error) return e.message.length > 0 ? e.message : errMsg;
+  if (e && typeof e === "object" && "error" in e) {
+    const errAsStr = e.error as string;
+    return errAsStr.length > 0 ? errAsStr : errMsg;
+  }
+  return errMsg;
 }

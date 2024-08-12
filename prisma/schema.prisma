@@ -8,6 +8,16 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+generator zod {
+  provider              = "zod-prisma"
+  output                = "./zod"
+  relationModel         = true
+  modelCase             = "camelCase"
+  modelSuffix           = "Schema"
+  useDecimalJs          = true
+  prismaJsonNullability = true
+}
+
 model User {
   id Int @id @default(autoincrement())
 

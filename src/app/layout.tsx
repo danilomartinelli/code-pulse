@@ -8,7 +8,9 @@ import { ConnectionStoreProvider } from "@/providers/connection-store-provider";
 
 import "@uploadcare/file-uploader/web/uc-file-uploader-regular.min.css";
 import "./globals.css";
-import { env } from "@/lib/env";
+import TrpcProvider from "@/providers/trpc-provider";
+import { cookies } from "next/headers";
+import { env } from "@/lib/config/env";
 
 const font = DM_Sans({ subsets: ["latin"] });
 
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
   description: "Automate Your Worke  With Code Pulse.",
 };
 
-export default function RootLayout({
+function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -35,7 +37,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <ConnectionStoreProvider>{children}</ConnectionStoreProvider>
+            <TrpcProvider cookies={cookies().toString()}>
+              <ConnectionStoreProvider>{children}</ConnectionStoreProvider>
+            </TrpcProvider>
             <Analytics />
             <Toaster />
           </ThemeProvider>
@@ -44,3 +48,5 @@ export default function RootLayout({
     </ClerkProvider>
   );
 }
+
+export default RootLayout;
