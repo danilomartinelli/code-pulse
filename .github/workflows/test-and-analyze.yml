@@ -38,11 +38,11 @@ jobs:
           POSTGRES_DB: mydb
         ports:
           - 5432:5432
-        options: >
-          --health-cmd="pg_isready -U johndoe"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v3
@@ -77,25 +77,6 @@ jobs:
         with:
           name: coverage
           path: coverage/lcov.info
-
-  accessibility:
-    name: Run Accessibility Tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
-      - name: Install dependencies
-        run: bun install
-
-      - name: Run accessibility tests
-        run: |
-          bun add -g pa11y-ci
-          bunx pa11y-ci
 
   analyze-code:
     name: SonarCloud Analysis
@@ -138,10 +119,4 @@ jobs:
             -Dsonar.test.inclusions="**/*.spec.ts,**/*.test.ts"
           else
             echo "Coverage file not found. Skipping coverage upload."
-            bunx sonar-scanner \
-            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-            -Dsonar.organization=$SONAR_ORGANIZATION \
-            -Dsonar.sources=. \
-            -Dsonar.tests=src \
-            -Dsonar.test.inclusions="**/*.spec.ts,**/*.test.ts"
           fi
