@@ -1,0 +1,124 @@
+name: Test and Analyze
+
+env:
+  HUSKY: 0
+  NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
+  NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
+  NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: /dashboard
+  NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: /dashboard
+  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: MY_CLERK_PUBLISHABLE_KEY
+  CLERK_SECRET_KEY: MY_CLERK_SECRET_KEY
+  NEXT_PUBLIC_URL: http://localhost:3000
+  NEXT_PUBLIC_DOMAIN: localhost
+  NEXT_PUBLIC_SCHEME: http
+  DATABASE_URL: 'postgresql://johndoe:randompassword@localhost:5432/mydb?pgbouncer=true'
+  DIRECT_URL: 'postgresql://johndoe:randompassword@localhost:5432/mydb'
+  NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY: MY_UPLOAD_CARE_PUBLIC_KEY
+  NEXT_PUBLIC_DISCORD_REDIRECT: https://test.com/discord
+  NEXT_PUBLIC_NOTION_AUTH_URL: https://test.com/notion
+  NEXT_PUBLIC_SLACK_REDIRECT: https://test.com/slack
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: johndoe
+          POSTGRES_PASSWORD: randompassword
+          POSTGRES_DB: mydb
+        ports:
+          - 5432:5432
+        options: >
+          --health-cmd="pg_isready -U johndoe"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Wait for PostgreSQL
+        run: sleep 15
+
+      - name: Run Prisma migrations
+        run: bunx prisma migrate deploy
+
+      - name: Install Playwright browsers
+        run: bunx playwright install --with-deps
+
+      - name: Run Playwright tests with coverage
+        run: bunx c8 -o ./coverage --reporter=lcov playwright test
+
+      - name: Upload Coverage
+        if: success()
+        run: bunx c8 report --reporter=text-lcov > coverage/lcov.info
+
+  accessibility:
+    name: Run Accessibility Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run accessibility tests
+        run: |
+          bun add -g pa11y-ci
+          bunx pa11y-ci
+
+  analyze-code:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Upload Coverage to SonarCloud
+        if: success()
+        run: |
+          bunx c8 report --reporter=text-lcov | bunx sonar-scanner \
+          -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+          -Dsonar.organization=$SONAR_ORGANIZATION \
+          -Dsonar.sources=. \
+          -Dsonar.tests=src \
+          -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info \
+          -Dsonar.test.inclusions="**/*.spec.ts,**/*.test.ts"
