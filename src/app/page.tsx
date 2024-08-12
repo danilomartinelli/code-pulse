@@ -1,12 +1,18 @@
 import Lamp from "./_components/lamp";
 import Navbar from "./_components/navbar";
-import { clients, commonFeatures, products } from "@/lib/constants";
 import PricingCard from "./_components/pricing-card";
 import GradientButton from "./_components/gradient-button";
-import { getOptionalDbUser } from "@/lib/server-utils";
+import { getOptionalDbUser } from "@/lib/server/utils";
 import HeroParallax from "./_components/hero-parallax";
 import InfiniteMovingCards from "./_components/infinite-moving-cards";
 import ContainerScroll from "./_components/container-scroll";
+import { commonFeatures, products } from "@/lib/misc/mocks";
+
+function generateClients(count: number) {
+  return Array.from({ length: count }, (_, index) => ({
+    href: `/${index + 1}.png`,
+  }));
+}
 
 export default async function Home() {
   const user = await getOptionalDbUser();
@@ -31,7 +37,7 @@ export default async function Home() {
       </section>
       <InfiniteMovingCards
         className="md:mt-[18rem] mt-[-100px]"
-        items={clients}
+        items={generateClients(10)}
         direction="right"
         speed="slow"
       />

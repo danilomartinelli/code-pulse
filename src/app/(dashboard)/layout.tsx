@@ -1,6 +1,6 @@
 import Sidebar from "./_components/sidebar";
 import Infobar from "./_components/infobar";
-import { getAuthenticatedDbUser } from "@/lib/server-utils";
+import { getAuthenticatedDbUser } from "@/lib/server/utils";
 
 type Props = { children: React.ReactNode };
 

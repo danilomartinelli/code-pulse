@@ -1,15 +1,4 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-export function createEventListener<T extends Event>(
-  handler: (event: T) => void,
-): EventListener {
-  return (event: Event) => handler(event as T);
-}
+import { connectionParamsKeys } from "@/lib/misc/constants";
 
 export type ConnectionParams = {
   webhook_id: string;
@@ -31,27 +20,6 @@ export type ConnectionParams = {
   team_id: string;
   team_name: string;
 };
-
-const connectionParamsKeys = [
-  "webhook_id",
-  "webhook_name",
-  "webhook_url",
-  "guild_id",
-  "guild_name",
-  "channel_id",
-  "access_token",
-  "workspace_name",
-  "workspace_icon",
-  "workspace_id",
-  "database_id",
-  "app_id",
-  "authed_user_id",
-  "authed_user_token",
-  "slack_access_token",
-  "bot_user_id",
-  "team_id",
-  "team_name",
-];
 
 export function getConnectionParams(
   searchParams: URLSearchParams,

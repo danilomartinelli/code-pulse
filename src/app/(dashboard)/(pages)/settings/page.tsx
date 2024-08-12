@@ -1,18 +1,21 @@
-import ProfileForm from "@/components/forms/profile-form";
+import ProfileForm from "./_components/profile-form";
 import { db } from "@/lib/db";
 import { User } from "@prisma/client";
-import { getAuthenticatedDbUser } from "@/lib/server-utils";
+import { getAuthenticatedDbUser } from "@/lib/server/utils";
 import ProfilePicture from "./_components/profile-picture";
+import { updateUserAction } from "@/lib/server/actions/user";
+import { CompleteUser } from "@/lib/database/schemas/user";
 
 const Settings = async () => {
-  const dbUser = await getAuthenticatedDbUser();
+  const { clerkId, name, email, profileImage, id } =
+    await getAuthenticatedDbUser();
 
   const removeProfileImage = async (): Promise<User | null> => {
     "use server";
 
     const response = await db.user.update({
       where: {
-        clerkId: dbUser.clerkId,
+        clerkId: clerkId,
       },
       data: {
         profileImage: "",
@@ -27,7 +30,7 @@ const Settings = async () => {
 
     const response = await db.user.update({
       where: {
-        clerkId: dbUser.clerkId,
+        clerkId: clerkId,
       },
       data: {
         profileImage: image,
@@ -37,19 +40,10 @@ const Settings = async () => {
     return response;
   };
 
-  const updateUserInfo = async (name: string): Promise<User | null> => {
+  const updateUserInfo = async (name: string): Promise<CompleteUser | null> => {
     "use server";
 
-    const updateUser = await db.user.update({
-      where: {
-        clerkId: dbUser.clerkId,
-      },
-      data: {
-        name,
-      },
-    });
-
-    return updateUser;
+    return updateUserAction(id, { name });
   };
 
   return (
@@ -66,10 +60,10 @@ const Settings = async () => {
         </div>
         <ProfilePicture
           onDelete={removeProfileImage}
-          userImage={dbUser.profileImage}
+          userImage={profileImage}
           onUpload={uploadProfileImage}
         />
-        <ProfileForm user={dbUser} onUpdate={updateUserInfo} />
+        <ProfileForm user={{ name, email }} onUpdate={updateUserInfo} />
       </div>
     </div>
   );
