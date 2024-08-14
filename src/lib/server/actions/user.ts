@@ -5,12 +5,13 @@ import {
   CompleteUser,
   updateUserParams,
   UpdateUserParams,
+  UserId,
 } from "@/lib/database/schemas/user";
 import { revalidatePath } from "next/cache";
 import { getErrorMessage } from "../utils";
 
 export const updateUserAction = async (
-  id: number,
+  id: UserId,
   updateParams: UpdateUserParams,
 ): Promise<CompleteUser> => {
   try {

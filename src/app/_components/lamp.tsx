@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/client/utils";
 import { Sparkles } from "@/components/shared/sparkles";
 
 type LampContainerProps = {

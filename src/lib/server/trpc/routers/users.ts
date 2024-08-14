@@ -2,6 +2,9 @@ import { getUserById, getUsers } from "@/lib/api/users/queries";
 import { updateUser } from "@/lib/api/users/mutations";
 import { publicProcedure, router } from "@/lib/server/trpc";
 import { userIdSchema, updateUserParams } from "@/lib/database/schemas/user";
+import { z } from "zod";
+
+const updateUserInput = z.tuple([userIdSchema, updateUserParams]);
 
 export const usersRouter = router({
   getUsers: publicProcedure.query(async () => {
@@ -11,8 +14,9 @@ export const usersRouter = router({
     return getUserById(input.id);
   }),
   updateUser: publicProcedure
-    .input(updateUserParams)
+    .input(updateUserInput)
     .mutation(async ({ input }) => {
-      return updateUser(input.id, input);
+      const [{ id: userId }, update] = input;
+      return updateUser(userId, update);
     }),
 });

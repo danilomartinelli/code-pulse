@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import { Connection, ConnectionType } from "@/lib/constants";
+import { Connection, ConnectionType } from "@/lib/misc/constants";
 
 type ConnectionCardProps = {
   connection: Connection;
