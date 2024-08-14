@@ -34,7 +34,7 @@ jobs:
         uses: trstringer/manual-approval@v1
         with:
           secret: ${{ secrets.GITHUB_TOKEN }}
-          approvers: your-github-username
+          approvers: danilomartinelli
           minimum-approvals: 1
           issue-title: 'Approve deploy to preview environment'
           issue-body: 'Please approve the deployment to the preview environment.'
