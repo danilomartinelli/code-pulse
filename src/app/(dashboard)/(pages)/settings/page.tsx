@@ -1,10 +1,10 @@
 import ProfileForm from "./_components/profile-form";
-import { db } from "@/lib/db";
 import { User } from "@prisma/client";
 import { getAuthenticatedDbUser } from "@/lib/server/utils";
 import ProfilePicture from "./_components/profile-picture";
 import { updateUserAction } from "@/lib/server/actions/user";
 import { CompleteUser } from "@/lib/database/schemas/user";
+import { db } from "@/lib/database";
 
 const Settings = async () => {
   const { clerkId, name, email, profileImage, id } =

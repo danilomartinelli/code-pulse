@@ -12,7 +12,7 @@ import clsx from "clsx";
 import { Separator } from "@/components/ui/separator";
 import { Database, GitBranch, LucideMousePointerClick } from "lucide-react";
 import LightModeToggle from "./light-mode-toggle";
-import { menuOptions } from "@/lib/misc/config";
+import menuOptions from "@/lib/config/menu-options";
 
 const Sidebar = () => {
   const pathName = usePathname();
