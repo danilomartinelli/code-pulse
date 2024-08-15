@@ -9,7 +9,7 @@
     "lint": "next lint",
     "lint-format-all": "eslint --fix . && prettier --write \"**/*.{js,jsx,ts,tsx}\"",
     "test": "playwright test",
-    "prepare": "node .husky/install.mjs",
+    "prepare": "bun .husky/install.mjs",
     "postinstall": "prisma generate"
   },
   "dependencies": {

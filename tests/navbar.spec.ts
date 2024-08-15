@@ -1,8 +1,6 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Navbar tests", () => {
-  test.use({ viewport: { width: 1280, height: 720 } });
-
   test("Navbar component", async ({ page }) => {
     // Navigate to the home page
     await page.goto("/");
