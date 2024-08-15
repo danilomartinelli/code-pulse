@@ -1,4 +1,181 @@
 {
+  // Configurações da interface do usuário
+  "window.title": "${activeEditorMedium}",
+  "workbench.sideBar.location": "right",
+  "workbench.startupEditor": "none",
+  "workbench.statusBar.visible": true,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.restoreViewState": true,
+  "workbench.activityBar.location": "default",
+  "workbench.colorCustomizations": {
+    "editor.lineHighlightBackground": "#223851"
+  },
+
+  // Configurações do editor de texto
+  "editor.cursorBlinking": "solid",
+  "editor.cursorStyle": "block",
+  "editor.find.addExtraSpaceOnTop": true,
+  "editor.padding.top": 36,
+  "editor.stickyScroll.enabled": false,
+  "editor.fontFamily": "Hack Nerd Font Mono",
+  "editor.fontSize": 14,
+  "editor.tabSize": 2,
+  "editor.lineHeight": 20,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.renderWhitespace": "none",
+  "editor.scrollBeyondLastLine": true,
+  "editor.minimap.enabled": false,
+  "editor.lineNumbers": "relative",
+  "editor.find.seedSearchStringFromSelection": "never",
+  "editor.renderLineHighlight": "all",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.tslint": "explicit",
+    "source.addMissingImports": "explicit"
+  },
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.snippetSuggestions": "top",
+  "editor.fontLigatures": true,
+  "editor.suggestSelection": "first",
+
+  // Configurações de arquivos
+  "files.trimTrailingWhitespace": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.associations": {
+    ".env*": "makefile"
+  },
+
+  // Configurações do Prettier
+  "prettier.requireConfig": true,
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 80,
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.documentSelectors": ["**/*.astro"],
+  "[astro]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // Configurações do ESLint
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "javascript.validate.enable": false,
+  "javascript.updateImportsOnFileMove.enabled": "prompt",
+  "typescript.updateImportsOnFileMove.enabled": "never",
+
+  // Configurações do Git e GitLens
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": "all",
+  "git.openRepositoryInParentFolders": "never",
+
+  // Outras configurações diversas
+  "explorer.confirmDelete": false,
+  "explorer.compactFolders": false,
+  "explorer.confirmDragAndDrop": false,
+  "js/ts.implicitProjectConfig.checkJs": true,
+  "typescript.preferences.autoImportFileExcludePatterns": ["@radix-ui"],
+  "cSpell.enableFiletypes": [
+    "!asciidoc",
+    "!c",
+    "!cpp",
+    "!csharp",
+    "!css",
+    "!elixir",
+    "!erlang",
+    "!git-commit",
+    "!go",
+    "!graphql",
+    "!handlebars",
+    "!haskell",
+    "!html",
+    "!jade",
+    "!java",
+    "!javascript",
+    "!javascriptreact",
+    "!json",
+    "!jsonc",
+    "!jupyter",
+    "!less",
+    "!php",
+    "!pug",
+    "!python",
+    "!restructuredtext",
+    "!rust",
+    "!scala",
+    "!scminput",
+    "!scss",
+    "!swift",
+    "!typescript",
+    "!typescriptreact",
+    "!vue",
+    "!yaml",
+    "!yml",
+    "mdx"
+  ],
+  "figma.autocompleteBlocks": true,
+
+  // Configurações do Terminal Integrado
+  "terminal.integrated.env.osx": {
+    "PATH": "/Users/danilomartinelli/.local/share/mise/installs/node/20/bin:/Users/danilomartinelli/.local/share/mise/installs/bun/1.1.24/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/danilomartinelli/.console-ninja/.bin:/Users/danilomartinelli/.local/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Users/danilomartinelli/.orbstack/bin"
+  },
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.profiles.osx": {
+    "zsh": {
+      "path": "/bin/zsh",
+      "args": ["-l"]
+    }
+  },
+
+  // Configurações do Error Lens
+  "errorLens.enabled": true,
+  "errorLens.fontWeight": "bold",
+  "errorLens.followCursor": "allLines",
+  "cSpell.language": "en,pt-BR",
+
+  // Conf. específicas do projeto
   "sonarlint.connectedMode.project": {
     "connectionId": "danilomartinelli",
     "projectKey": "danilomartinelli_code-pulse"
