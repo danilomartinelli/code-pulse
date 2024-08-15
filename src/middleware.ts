@@ -12,6 +12,7 @@ const isPublicRoute = createRouteMatcher([
   "/api/cron/wait",
   "/sign-in(.*)",
   "/sign-up(.*)",
+  "/monitoring", // Sentry monitoring endpoint should be public to receive errors
 ]);
 
 export default clerkMiddleware((auth, request) => {

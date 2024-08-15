@@ -40,7 +40,6 @@ export async function getAuthenticatedDbUser(): Promise<User> {
 }
 
 export async function getOptionalDbUser(): Promise<User | null> {
-  console.log("getOptionalDbUser called");
   const clerkUser = await currentUser();
 
   if (!clerkUser) {
