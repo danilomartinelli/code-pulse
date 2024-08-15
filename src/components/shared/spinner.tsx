@@ -1,12 +1,12 @@
 type SpinnerProps = {
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
 };
 
-const Spinner = ({ size = "medium" }: SpinnerProps) => {
+const Spinner = ({ size = 'medium' }: SpinnerProps) => {
   const sizeClasses = {
-    small: "h-4 w-4 border-4",
-    medium: "h-8 w-8 border-4",
-    large: "h-12 w-12 border-4",
+    small: 'h-4 w-4 border-4',
+    medium: 'h-8 w-8 border-4',
+    large: 'h-12 w-12 border-4',
   };
 
   return (

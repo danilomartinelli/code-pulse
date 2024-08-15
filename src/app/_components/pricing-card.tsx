@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Card3d from "@/components/shared/card-3d";
-import { CheckIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Card3d from '@/components/shared/card-3d';
+import { CheckIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export type Feature = {
   id: string;
@@ -28,7 +28,7 @@ const PricingCard = ({
     <Card3d className="inter-var">
       <Card3d.Body
         className={`bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-neutral-500/[0.1] dark:bg-black ${
-          highlightBorder ? "dark:border-[#E2CBFF]" : "dark:border-white/[0.2]"
+          highlightBorder ? 'dark:border-[#E2CBFF]' : 'dark:border-white/[0.2]'
         } border-black/[0.1] w-full md:!w-[350px] h-auto rounded-xl p-6 border`}
       >
         <Card3d.Item
@@ -59,7 +59,7 @@ const PricingCard = ({
             as="span"
             className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white cursor-pointer"
             onClick={() => {
-              router.push("/dashboard");
+              router.push('/dashboard');
             }}
           >
             Try now →
@@ -69,7 +69,7 @@ const PricingCard = ({
             as="span"
             className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold cursor-pointer"
             onClick={() => {
-              router.push("/dashboard");
+              router.push('/dashboard');
             }}
           >
             Get Started Now

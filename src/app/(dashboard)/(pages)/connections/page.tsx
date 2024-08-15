@@ -1,5 +1,5 @@
-import { CONNECTIONS } from "@/lib/misc/constants";
-import ConnectionCard from "./_components/connection-card";
+import { CONNECTIONS } from '@/lib/misc/constants';
+import ConnectionCard from './_components/connection-card';
 
 type ConnectionsProps = {
   searchParams: URLSearchParams;

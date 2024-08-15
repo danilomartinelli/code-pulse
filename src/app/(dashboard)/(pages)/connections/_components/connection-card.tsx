@@ -1,13 +1,13 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import Image from "next/image";
-import Link from "next/link";
-import { Connection, ConnectionType } from "@/lib/misc/constants";
+} from '@/components/ui/card';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Connection, ConnectionType } from '@/lib/misc/constants';
 
 type ConnectionCardProps = {
   connection: Connection;
@@ -22,14 +22,14 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({
 
   const authLink = useMemo(() => {
     switch (type) {
-      case "discordNode":
+      case 'discordNode':
         return process.env.NEXT_PUBLIC_DISCORD_REDIRECT!;
-      case "notionNode":
+      case 'notionNode':
         return process.env.NEXT_PUBLIC_NOTION_AUTH_URL!;
-      case "slackNode":
+      case 'slackNode':
         return process.env.NEXT_PUBLIC_SLACK_REDIRECT!;
       default:
-        return "#";
+        return '#';
     }
   }, [type]);
 

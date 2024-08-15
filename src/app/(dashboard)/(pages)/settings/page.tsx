@@ -1,24 +1,24 @@
-import ProfileForm from "./_components/profile-form";
-import { User } from "@prisma/client";
-import { getAuthenticatedDbUser } from "@/lib/server/utils";
-import ProfilePicture from "./_components/profile-picture";
-import { updateUserAction } from "@/lib/server/actions/user";
-import { CompleteUser } from "@/lib/database/schemas/user";
-import { db } from "@/lib/database";
+import ProfileForm from './_components/profile-form';
+import { User } from '@prisma/client';
+import { getAuthenticatedDbUser } from '@/lib/server/utils';
+import ProfilePicture from './_components/profile-picture';
+import { updateUserAction } from '@/lib/server/actions/user';
+import { CompleteUser } from '@/lib/database/schemas/user';
+import { db } from '@/lib/database';
 
 const Settings = async () => {
   const { clerkId, name, email, profileImage, id } =
     await getAuthenticatedDbUser();
 
   const removeProfileImage = async (): Promise<User | null> => {
-    "use server";
+    'use server';
 
     const response = await db.user.update({
       where: {
         clerkId: clerkId,
       },
       data: {
-        profileImage: "",
+        profileImage: '',
       },
     });
 
@@ -26,7 +26,7 @@ const Settings = async () => {
   };
 
   const uploadProfileImage = async (image: string): Promise<User | null> => {
-    "use server";
+    'use server';
 
     const response = await db.user.update({
       where: {
@@ -41,7 +41,7 @@ const Settings = async () => {
   };
 
   const updateUserInfo = async (name: string): Promise<CompleteUser | null> => {
-    "use server";
+    'use server';
 
     return updateUserAction(id, { name });
   };

@@ -1,12 +1,12 @@
-import Lamp from "./_components/lamp";
-import Navbar from "./_components/navbar";
-import PricingCard from "./_components/pricing-card";
-import GradientButton from "./_components/gradient-button";
-import { getOptionalDbUser } from "@/lib/server/utils";
-import HeroParallax from "./_components/hero-parallax";
-import InfiniteMovingCards from "./_components/infinite-moving-cards";
-import ContainerScroll from "./_components/container-scroll";
-import { commonFeatures, products } from "@/lib/misc/mocks";
+import Lamp from './_components/lamp';
+import Navbar from './_components/navbar';
+import PricingCard from './_components/pricing-card';
+import GradientButton from './_components/gradient-button';
+import { getOptionalDbUser } from '@/lib/server/utils';
+import HeroParallax from './_components/hero-parallax';
+import InfiniteMovingCards from './_components/infinite-moving-cards';
+import ContainerScroll from './_components/container-scroll';
+import { commonFeatures, products } from '@/lib/misc/mocks';
 
 function generateClients(count: number) {
   return Array.from({ length: count }, (_, index) => ({

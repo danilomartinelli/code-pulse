@@ -1,5 +1,5 @@
-import { db } from "@/lib/database";
-import { type UserId, userIdSchema } from "@/lib/database/schemas/user";
+import { db } from '@/lib/database';
+import { type UserId, userIdSchema } from '@/lib/database/schemas/user';
 
 export const getUsers = async () => {
   const c = await db.user.findMany();

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import {
   Form,
   FormControl,
@@ -11,15 +11,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { User } from "@prisma/client";
-import { CompleteUser, updateUserParams } from "@/lib/database/schemas/user";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
+import { User } from '@prisma/client';
+import { CompleteUser, updateUserParams } from '@/lib/database/schemas/user';
 
 type ProfileFormProps = {
-  user: Pick<User, "name" | "email">;
+  user: Pick<User, 'name' | 'email'>;
   onUpdate: (name: string) => Promise<CompleteUser | null>;
 };
 
@@ -29,7 +29,7 @@ type ProfileFormProps = {
 // The email field is read only and cannot be updated at the api level.
 // But we still include it in the form to display the user's email as a reference.
 const profileFormSchema = updateUserParams.extend({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, 'Name is required'),
   email: z.string().email(),
 });
 
@@ -39,10 +39,10 @@ const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<ProfileFormSchema>({
-    mode: "onChange",
+    mode: 'onChange',
     resolver: zodResolver(updateUserParams),
     defaultValues: {
-      name: user.name ?? "",
+      name: user.name ?? '',
       email: user.email,
     },
   });
@@ -54,11 +54,11 @@ const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
   };
 
   useEffect(() => {
-    const currentName = form.getValues("name");
-    const currentEmail = form.getValues("email");
+    const currentName = form.getValues('name');
+    const currentEmail = form.getValues('email');
 
     if (currentName !== user.name || currentEmail !== user.email) {
-      form.reset({ name: user.name ?? "", email: user.email });
+      form.reset({ name: user.name ?? '', email: user.email });
     }
   }, [user, form]);
 
@@ -110,7 +110,7 @@ const ProfileForm = ({ user, onUpdate }: ProfileFormProps) => {
               Saving
             </>
           ) : (
-            "Save User Settings"
+            'Save User Settings'
           )}
         </Button>
       </form>

@@ -1,5 +1,5 @@
-import * as z from "zod";
-import { CompleteUser, relatedUserSchema } from "./index";
+import * as z from 'zod';
+import { CompleteUser, relatedUserSchema } from './index';
 
 export const localGoogleCredentialSchema = z.object({
   id: z.string(),
@@ -27,5 +27,5 @@ export const relatedLocalGoogleCredentialSchema: z.ZodSchema<CompleteLocalGoogle
   z.lazy(() =>
     localGoogleCredentialSchema.extend({
       user: relatedUserSchema,
-    }),
+    })
   );

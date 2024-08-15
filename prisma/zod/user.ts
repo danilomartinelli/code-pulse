@@ -1,4 +1,4 @@
-import * as z from "zod";
+import * as z from 'zod';
 import {
   CompleteLocalGoogleCredential,
   relatedLocalGoogleCredentialSchema,
@@ -12,7 +12,7 @@ import {
   relatedConnectionsSchema,
   CompleteWorkflows,
   relatedWorkflowsSchema,
-} from "./index";
+} from './index';
 
 export const userSchema = z.object({
   id: z.number().int(),
@@ -50,5 +50,5 @@ export const relatedUserSchema: z.ZodSchema<CompleteUser> = z.lazy(() =>
     Slack: relatedSlackSchema.array(),
     connections: relatedConnectionsSchema.array(),
     workflows: relatedWorkflowsSchema.array(),
-  }),
+  })
 );

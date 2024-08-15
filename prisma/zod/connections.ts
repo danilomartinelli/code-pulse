@@ -1,4 +1,4 @@
-import * as z from "zod";
+import * as z from 'zod';
 import {
   CompleteDiscordWebhook,
   relatedDiscordWebhookSchema,
@@ -8,7 +8,7 @@ import {
   relatedUserSchema,
   CompleteSlack,
   relatedSlackSchema,
-} from "./index";
+} from './index';
 
 export const connectionsSchema = z.object({
   id: z.string(),
@@ -38,5 +38,5 @@ export const relatedConnectionsSchema: z.ZodSchema<CompleteConnections> =
       Notion: relatedNotionSchema.nullish(),
       User: relatedUserSchema.nullish(),
       Slack: relatedSlackSchema.nullish(),
-    }),
+    })
   );

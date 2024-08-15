@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
-import { User } from "@prisma/client";
-import UploadCareButton from "@/components/shared/uploadcare-button";
-import { env } from "@/lib/config/env";
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { X } from 'lucide-react';
+import { User } from '@prisma/client';
+import UploadCareButton from '@/components/shared/uploadcare-button';
+import { env } from '@/lib/config/env';
 
 type ProfilePictureProps = {
   userImage: string | null;

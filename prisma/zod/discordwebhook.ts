@@ -1,10 +1,10 @@
-import * as z from "zod";
+import * as z from 'zod';
 import {
   CompleteUser,
   relatedUserSchema,
   CompleteConnections,
   relatedConnectionsSchema,
-} from "./index";
+} from './index';
 
 export const discordWebhookSchema = z.object({
   id: z.string(),
@@ -33,5 +33,5 @@ export const relatedDiscordWebhookSchema: z.ZodSchema<CompleteDiscordWebhook> =
     discordWebhookSchema.extend({
       user: relatedUserSchema,
       connections: relatedConnectionsSchema.array(),
-    }),
+    })
   );

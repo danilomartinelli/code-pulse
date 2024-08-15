@@ -1,4 +1,4 @@
-import { createStore } from "zustand/vanilla";
+import { createStore } from 'zustand/vanilla';
 
 export type DiscordNode = {
   webhookURL: string;
@@ -59,42 +59,42 @@ export type ConnectionStore = ConnectionState & ConnectionActions;
 
 export const defaultInitState: ConnectionState = {
   discordNode: {
-    webhookURL: "",
-    content: "",
-    webhookName: "",
-    guildName: "",
+    webhookURL: '',
+    content: '',
+    webhookName: '',
+    guildName: '',
   },
   googleNode: {
-    accessToken: "",
-    refreshToken: "",
-    content: "",
+    accessToken: '',
+    refreshToken: '',
+    content: '',
   },
   notionNode: {
-    accessToken: "",
-    databaseId: "",
-    workspaceName: "",
-    content: "",
+    accessToken: '',
+    databaseId: '',
+    workspaceName: '',
+    content: '',
   },
   slackNode: {
-    appId: "",
-    authedUserId: "",
-    authedUserToken: "",
-    slackAccessToken: "",
-    botUserId: "",
-    teamId: "",
-    teamName: "",
-    content: "",
+    appId: '',
+    authedUserId: '',
+    authedUserToken: '',
+    slackAccessToken: '',
+    botUserId: '',
+    teamId: '',
+    teamName: '',
+    content: '',
   },
   workflowTemplate: {
-    discord: "",
-    notion: "",
-    slack: "",
+    discord: '',
+    notion: '',
+    slack: '',
   },
   isLoading: false,
 };
 
 export const createConnectionStore = (
-  initState: ConnectionState = defaultInitState,
+  initState: ConnectionState = defaultInitState
 ) => {
   return createStore<ConnectionStore>()((set) => ({
     ...initState,

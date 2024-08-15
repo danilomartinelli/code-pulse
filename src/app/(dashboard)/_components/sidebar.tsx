@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import clsx from "clsx";
-import { Separator } from "@/components/ui/separator";
-import { Database, GitBranch, LucideMousePointerClick } from "lucide-react";
-import LightModeToggle from "./light-mode-toggle";
-import menuOptions from "@/lib/config/menu-options";
+} from '@/components/ui/tooltip';
+import clsx from 'clsx';
+import { Separator } from '@/components/ui/separator';
+import { Database, GitBranch, LucideMousePointerClick } from 'lucide-react';
+import LightModeToggle from './light-mode-toggle';
+import menuOptions from '@/lib/config/menu-options';
 
 const Sidebar = () => {
   const pathName = usePathname();
@@ -32,11 +32,11 @@ const Sidebar = () => {
                     <Link
                       href={menuItem.href}
                       className={clsx(
-                        "group h-8 w-8 flex items-center justify-center  scale-[1.5] rounded-lg p-[3px]  cursor-pointer",
+                        'group h-8 w-8 flex items-center justify-center  scale-[1.5] rounded-lg p-[3px]  cursor-pointer',
                         {
-                          "dark:bg-[#2F006B] bg-[#EEE0FF] ":
+                          'dark:bg-[#2F006B] bg-[#EEE0FF] ':
                             pathName === menuItem.href,
-                        },
+                        }
                       )}
                     >
                       <menuItem.Component

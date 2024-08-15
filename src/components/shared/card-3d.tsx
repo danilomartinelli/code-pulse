@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/client/utils";
+import { cn } from '@/lib/client/utils';
 import React, {
   createContext,
   useState,
@@ -11,18 +11,18 @@ import React, {
   Dispatch,
   SetStateAction,
   useCallback,
-} from "react";
+} from 'react';
 
 type MouseEnterContextType = [boolean, Dispatch<SetStateAction<boolean>>];
 
 const MouseEnterContext = createContext<MouseEnterContextType | undefined>(
-  undefined,
+  undefined
 );
 
 const useMouseEnter = () => {
   const context = useContext(MouseEnterContext);
   if (context === undefined) {
-    throw new Error("useMouseEnter must be used within a MouseEnterProvider");
+    throw new Error('useMouseEnter must be used within a MouseEnterProvider');
   }
   return context;
 };
@@ -41,7 +41,7 @@ const Card3D: React.FC<Card3DProps> & {
   const [isMouseEntered, setIsMouseEntered] = useState(false);
   const contextValue = useMemo(
     (): MouseEnterContextType => [isMouseEntered, setIsMouseEntered],
-    [isMouseEntered],
+    [isMouseEntered]
   );
 
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -66,8 +66,8 @@ const Card3D: React.FC<Card3DProps> & {
   return (
     <MouseEnterContext.Provider value={contextValue}>
       <div
-        className={cn("flex items-center justify-center", containerClassName)}
-        style={{ perspective: "1000px" }}
+        className={cn('flex items-center justify-center', containerClassName)}
+        style={{ perspective: '1000px' }}
       >
         <button
           ref={containerRef}
@@ -75,10 +75,10 @@ const Card3D: React.FC<Card3DProps> & {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           className={cn(
-            "flex items-center justify-center relative transition-all duration-200 ease-linear",
-            className,
+            'flex items-center justify-center relative transition-all duration-200 ease-linear',
+            className
           )}
-          style={{ transformStyle: "preserve-3d" }}
+          style={{ transformStyle: 'preserve-3d' }}
         >
           {children}
         </button>
@@ -94,8 +94,8 @@ const Body: React.FC<{
   return (
     <div
       className={cn(
-        "h-96 w-96 [transform-style:preserve-3d] [&>*]:[transform-style:preserve-3d]",
-        className,
+        'h-96 w-96 [transform-style:preserve-3d] [&>*]:[transform-style:preserve-3d]',
+        className
       )}
     >
       {children}
@@ -117,7 +117,7 @@ type ItemProps = {
 };
 
 const Item: React.FC<ItemProps> = ({
-  as: Tag = "div",
+  as: Tag = 'div',
   children,
   className,
   translateX = 0,
@@ -131,7 +131,7 @@ const Item: React.FC<ItemProps> = ({
 }) => {
   const ref = useRef<HTMLElement>(null);
   const [isMouseEntered] = useMouseEnter();
-  const isButton = Tag === "button";
+  const isButton = Tag === 'button';
 
   const handleAnimations = useCallback(() => {
     if (!ref.current) return;
@@ -154,17 +154,17 @@ const Item: React.FC<ItemProps> = ({
     handleAnimations();
   }, [handleAnimations]);
 
-  const ElementType = isButton ? "span" : Tag;
+  const ElementType = isButton ? 'span' : Tag;
 
   return (
     <ElementType
       ref={ref}
       className={cn(
-        "w-fit transition duration-200 ease-linear",
+        'w-fit transition duration-200 ease-linear',
         className,
-        isButton || onClick ? "cursor-pointer" : "",
+        isButton || onClick ? 'cursor-pointer' : ''
       )}
-      {...(isButton || onClick ? { role: "button", tabIndex: 0 } : {})}
+      {...(isButton || onClick ? { role: 'button', tabIndex: 0 } : {})}
       onClick={onClick}
       {...rest}
     >

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { trpc } from "@/lib/client/trpc";
-import { getBaseUrl } from "@/lib/client/utils";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client";
-import React, { useEffect, useState } from "react";
-import SuperJSON from "superjson";
+import { trpc } from '@/lib/client/trpc';
+import { getBaseUrl } from '@/lib/client/utils';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { loggerLink, unstable_httpBatchStreamLink } from '@trpc/client';
+import React, { useEffect, useState } from 'react';
+import SuperJSON from 'superjson';
 
 type TrpcProviderProps = {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ const TrpcProvider = ({ children, cookies }: TrpcProviderProps) => {
 
   useEffect(() => {
     function getTrpcUrl() {
-      return getBaseUrl() + "/api/trpc";
+      return getBaseUrl() + '/api/trpc';
     }
 
     const client = trpc.createClient({
@@ -28,15 +28,15 @@ const TrpcProvider = ({ children, cookies }: TrpcProviderProps) => {
       links: [
         loggerLink({
           enabled: (op) =>
-            process.env.NODE_ENV === "development" ||
-            (op.direction === "down" && op.result instanceof Error),
+            process.env.NODE_ENV === 'development' ||
+            (op.direction === 'down' && op.result instanceof Error),
         }),
         unstable_httpBatchStreamLink({
           url: getTrpcUrl(),
           headers() {
             return {
               cookie: cookies,
-              "x-trpc-source": "react",
+              'x-trpc-source': 'react',
             };
           },
         }),

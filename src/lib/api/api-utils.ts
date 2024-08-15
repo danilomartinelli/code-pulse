@@ -1,6 +1,6 @@
-import { TRPCError } from "@trpc/server";
-import { TRPC_ERROR_CODE_KEY } from "@trpc/server/rpc";
-import { DEFAULT_UNEXPECTED_ERROR_MESSAGE } from "../misc/constants";
+import { TRPCError } from '@trpc/server';
+import { TRPC_ERROR_CODE_KEY } from '@trpc/server/rpc';
+import { DEFAULT_UNEXPECTED_ERROR_MESSAGE } from '../misc/constants';
 
 interface ErrorOptions {
   code?: TRPC_ERROR_CODE_KEY;
@@ -10,9 +10,9 @@ interface ErrorOptions {
 export function handleTRPCError(
   err: unknown,
   {
-    code = "INTERNAL_SERVER_ERROR",
+    code = 'INTERNAL_SERVER_ERROR',
     defaultMessage = DEFAULT_UNEXPECTED_ERROR_MESSAGE,
-  }: ErrorOptions = {},
+  }: ErrorOptions = {}
 ): never {
   const message = (err as Error).message || defaultMessage;
 

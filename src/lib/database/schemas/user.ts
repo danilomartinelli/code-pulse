@@ -1,7 +1,7 @@
-import { userSchema } from "@/zodAutoGenSchemas";
-import { z } from "zod";
-import { id, timestamps } from "../schema-utils";
-import { getUsers } from "@/lib/api/users/queries";
+import { userSchema } from '@/zodAutoGenSchemas';
+import { z } from 'zod';
+import { id, timestamps } from '../schema-utils';
+import { getUsers } from '@/lib/api/users/queries';
 
 // Schema for users - used to validate API requests
 const baseSchema = userSchema.omit(timestamps);
@@ -35,9 +35,9 @@ export type User = z.infer<typeof userSchema>;
 export type NewUser = z.infer<typeof insertUserSchema>;
 export type NewUserParams = z.infer<typeof insertUserParams>;
 export type UpdateUserParams = z.infer<typeof updateUserParams>;
-export type UserId = z.infer<typeof userIdSchema>["id"];
+export type UserId = z.infer<typeof userIdSchema>['id'];
 
 // this type infers the return from getUsers() - meaning it will include any joins
 export type CompleteUser = Awaited<
   ReturnType<typeof getUsers>
->["users"][number];
+>['users'][number];

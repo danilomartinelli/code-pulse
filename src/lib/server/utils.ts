@@ -1,7 +1,7 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { db } from "../database";
-import { User } from "@prisma/client";
-import { AuthenticationError } from "./custom-errors";
+import { currentUser } from '@clerk/nextjs/server';
+import { db } from '../database';
+import { User } from '@prisma/client';
+import { AuthenticationError } from './custom-errors';
 
 async function findAndValidateUser(clerkUserId: string): Promise<User> {
   const user = await db.user.findUnique({
@@ -19,7 +19,7 @@ async function findAndValidateUser(clerkUserId: string): Promise<User> {
   // In a properly functioning system, this code should never be executed.
   // If it is, it indicates a critical error that needs immediate attention.
   if (!user) {
-    throw new AuthenticationError("User not found in database");
+    throw new AuthenticationError('User not found in database');
   }
 
   return user;
@@ -33,7 +33,7 @@ export async function getAuthenticatedDbUser(): Promise<User> {
   // However, TypeScript may still consider authUser potentially null,
   // so we perform a null check to satisfy the type system.
   if (!clerkUser) {
-    throw new AuthenticationError("User not authenticated");
+    throw new AuthenticationError('User not authenticated');
   }
 
   return findAndValidateUser(clerkUser.id);
@@ -56,19 +56,19 @@ export function getBaseUrl(): string {
 
   if (process.env.NEXT_PUBLIC_URL) {
     const publicUrl = process.env.NEXT_PUBLIC_URL.trim();
-    if (!publicUrl.startsWith("http")) {
+    if (!publicUrl.startsWith('http')) {
       throw new Error('NEXT_PUBLIC_URL must start with "http" or "https".');
     }
     return publicUrl;
   }
 
-  return "http://localhost:3000";
+  return 'http://localhost:3000';
 }
 
 export function getErrorMessage(e: unknown) {
-  const errMsg = "Error, please try again.";
+  const errMsg = 'Error, please try again.';
   if (e instanceof Error) return e.message.length > 0 ? e.message : errMsg;
-  if (e && typeof e === "object" && "error" in e) {
+  if (e && typeof e === 'object' && 'error' in e) {
     const errAsStr = e.error as string;
     return errAsStr.length > 0 ? errAsStr : errMsg;
   }

@@ -1,25 +1,25 @@
-"use server";
+'use server';
 
-import { updateUser } from "@/lib/api/users/mutations";
+import { updateUser } from '@/lib/api/users/mutations';
 import {
   CompleteUser,
   updateUserParams,
   UpdateUserParams,
   UserId,
-} from "@/lib/database/schemas/user";
-import { revalidatePath } from "next/cache";
-import { getErrorMessage } from "../utils";
+} from '@/lib/database/schemas/user';
+import { revalidatePath } from 'next/cache';
+import { getErrorMessage } from '../utils';
 
 export const updateUserAction = async (
   id: UserId,
-  updateParams: UpdateUserParams,
+  updateParams: UpdateUserParams
 ): Promise<CompleteUser> => {
   try {
     const parsedUser = updateUserParams.parse(updateParams);
 
     const { user } = await updateUser(id, parsedUser);
 
-    revalidatePath("/settings");
+    revalidatePath('/settings');
 
     return user;
   } catch (e) {

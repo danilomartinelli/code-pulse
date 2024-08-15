@@ -1,5 +1,5 @@
-import * as z from "zod";
-import { CompleteUser, relatedUserSchema } from "./index";
+import * as z from 'zod';
+import { CompleteUser, relatedUserSchema } from './index';
 
 export const workflowsSchema = z.object({
   id: z.string(),
@@ -33,5 +33,5 @@ export const relatedWorkflowsSchema: z.ZodSchema<CompleteWorkflows> = z.lazy(
   () =>
     workflowsSchema.extend({
       User: relatedUserSchema,
-    }),
+    })
 );

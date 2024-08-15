@@ -1,4 +1,4 @@
-import { connectionParamsKeys } from "@/lib/misc/constants";
+import { connectionParamsKeys } from '@/lib/misc/constants';
 
 export type ConnectionParams = {
   webhook_id: string;
@@ -22,13 +22,13 @@ export type ConnectionParams = {
 };
 
 export function getConnectionParams(
-  searchParams: URLSearchParams,
+  searchParams: URLSearchParams
 ): ConnectionParams {
   const connectionParams: Partial<ConnectionParams> = {};
 
   connectionParamsKeys.forEach((key) => {
     connectionParams[key as keyof ConnectionParams] =
-      searchParams.get(key) ?? "";
+      searchParams.get(key) ?? '';
   });
 
   return connectionParams as ConnectionParams;

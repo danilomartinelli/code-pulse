@@ -1,12 +1,12 @@
-import { db } from "@/lib/database";
+import { db } from '@/lib/database';
 import {
   UserId,
   UpdateUserParams,
   updateUserSchema,
   userIdSchema,
-} from "@/lib/database/schemas/user";
-import { handleTRPCError } from "../api-utils";
-import { DEFAULT_UNEXPECTED_ERROR_MESSAGE } from "@/lib/misc/constants";
+} from '@/lib/database/schemas/user';
+import { handleTRPCError } from '../api-utils';
+import { DEFAULT_UNEXPECTED_ERROR_MESSAGE } from '@/lib/misc/constants';
 
 export const updateUser = async (id: UserId, user: UpdateUserParams) => {
   const { id: userId } = userIdSchema.parse({ id });
@@ -20,7 +20,7 @@ export const updateUser = async (id: UserId, user: UpdateUserParams) => {
     return { user: c };
   } catch (err) {
     handleTRPCError(err, {
-      code: "BAD_REQUEST",
+      code: 'BAD_REQUEST',
       defaultMessage: DEFAULT_UNEXPECTED_ERROR_MESSAGE,
     });
   }

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { type ReactNode, createContext, useRef } from "react";
+import { type ReactNode, createContext, useRef } from 'react';
 
-import { createConnectionStore } from "@/stores/connection-store";
+import { createConnectionStore } from '@/stores/connection-store';
 
 export type ConnectionStoreApi = ReturnType<typeof createConnectionStore>;
 

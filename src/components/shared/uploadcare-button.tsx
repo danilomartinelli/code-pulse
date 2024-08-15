@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import * as UC from "@uploadcare/file-uploader";
-import Spinner from "@/components/shared/spinner";
-import { createEventListener } from "@/lib/client/utils";
+import { useEffect, useRef, useState } from 'react';
+import * as UC from '@uploadcare/file-uploader';
+import Spinner from '@/components/shared/spinner';
+import { createEventListener } from '@/lib/client/utils';
 
 type UploadCareButtonProps = {
   onUpload: (cdnUrl: string) => void;
@@ -33,16 +33,16 @@ const UploadCareButton = ({ onUpload, pubkey }: UploadCareButtonProps) => {
     if (ctxProviderRef.current) {
       uploadContext = ctxProviderRef.current;
       uploadContext.addEventListener(
-        "file-upload-success",
-        createEventListener<UploadcareSuccessEvent>(handleUpload),
+        'file-upload-success',
+        createEventListener<UploadcareSuccessEvent>(handleUpload)
       );
     }
 
     return () => {
       if (uploadContext) {
         uploadContext.removeEventListener(
-          "file-upload-success",
-          createEventListener<UploadcareSuccessEvent>(handleUpload),
+          'file-upload-success',
+          createEventListener<UploadcareSuccessEvent>(handleUpload)
         );
       }
     };

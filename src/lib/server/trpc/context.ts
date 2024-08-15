@@ -1,5 +1,5 @@
-import { db } from "@/lib/database";
-import { currentUser } from "@clerk/nextjs/server";
+import { db } from '@/lib/database';
+import { currentUser } from '@clerk/nextjs/server';
 
 export async function createTRPCContext(opts: { headers: Headers }) {
   const clerkUser = await currentUser();

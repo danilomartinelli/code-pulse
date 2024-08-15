@@ -1,10 +1,10 @@
-import * as z from "zod";
+import * as z from 'zod';
 import {
   CompleteUser,
   relatedUserSchema,
   CompleteConnections,
   relatedConnectionsSchema,
-} from "./index";
+} from './index';
 
 export const slackSchema = z.object({
   id: z.string(),
@@ -32,5 +32,5 @@ export const relatedSlackSchema: z.ZodSchema<CompleteSlack> = z.lazy(() =>
   slackSchema.extend({
     User: relatedUserSchema,
     connections: relatedConnectionsSchema.array(),
-  }),
+  })
 );

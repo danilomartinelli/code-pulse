@@ -1,10 +1,10 @@
-import * as z from "zod";
+import * as z from 'zod';
 import {
   CompleteUser,
   relatedUserSchema,
   CompleteConnections,
   relatedConnectionsSchema,
-} from "./index";
+} from './index';
 
 export const notionSchema = z.object({
   id: z.string(),
@@ -30,5 +30,5 @@ export const relatedNotionSchema: z.ZodSchema<CompleteNotion> = z.lazy(() =>
   notionSchema.extend({
     User: relatedUserSchema,
     connections: relatedConnectionsSchema.array(),
-  }),
+  })
 );
