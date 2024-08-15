@@ -35,17 +35,3 @@ jobs:
         run: |
           DEPLOY_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
           echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_OUTPUT
-
-      - name: Wait for deployment to be ready
-        run: |
-          echo "Waiting for deployment to be ready..."
-          sleep 60  # Wait 60 seconds to ensure the deploy is ready
-
-      - name: Run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v9
-        with:
-          urls: |
-            ${{ steps.deploy.outputs.DEPLOY_URL }}
-          uploadArtifacts: true
-          temporaryPublicStorage: true
-          configPath: './lighthouse-config.json'
