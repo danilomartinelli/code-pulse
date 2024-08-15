@@ -6,24 +6,15 @@ env:
   HUSKY: 0
 
 on:
-  workflow_dispatch:
-    inputs:
-      reason:
-        description: 'Reason for deployment'
-        required: true
-        type: string
+  push:
+    branches-ignore:
+      - main
 
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
-
-      - name: Run task
-        run: |
-          echo "Running task..."
-          echo "Reason: ${{ github.event.inputs.reason }}"
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
@@ -42,6 +33,4 @@ jobs:
       - name: Deploy Project Artifacts to Vercel
         id: deploy
         if: ${{ success() }}
-        run: |
-          DEPLOY_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
-          echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_OUTPUT
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
