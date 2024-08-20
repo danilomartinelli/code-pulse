@@ -1,6 +1,6 @@
 // This file is used to mock data for the components while developing the UI.
 
-import { Feature } from '@/app/_components/pricing-card';
+import { Feature } from '@/app/[locale]/_components/pricing-card';
 
 const getThumbnail = (index: number) => `/p${(index % 6) + 1}.png`;
 

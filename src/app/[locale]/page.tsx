@@ -7,6 +7,7 @@ import HeroParallax from './_components/hero-parallax';
 import InfiniteMovingCards from './_components/infinite-moving-cards';
 import ContainerScroll from './_components/container-scroll';
 import { commonFeatures, products } from '@/lib/misc/mocks';
+import { getTranslations } from 'next-intl/server';
 
 function generateClients(count: number) {
   return Array.from({ length: count }, (_, index) => ({
@@ -17,6 +18,8 @@ function generateClients(count: number) {
 export default async function Home() {
   const user = await getOptionalDbUser();
 
+  const t = await getTranslations('HomePage');
+
   return (
     <main className="flex items-center justify-center flex-col">
       <Navbar user={user} />
@@ -26,7 +29,7 @@ export default async function Home() {
           <ContainerScroll
             titleComponent={
               <div className="flex items-center flex-col">
-                <GradientButton>Start For Free Today</GradientButton>
+                <GradientButton>{t('GradientButton')}</GradientButton>
                 <h1 className="text-5xl md:text-8xl bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-600 font-sans font-bold">
                   Automate Your Work With Code Pulse
                 </h1>
