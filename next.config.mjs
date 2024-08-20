@@ -1,9 +1,13 @@
 import { withSentryConfig } from '@sentry/nextjs';
+import createNextIntlPlugin from 'next-intl/plugin';
 import { fileURLToPath } from 'node:url';
 import createJiti from 'jiti';
+
 const jiti = createJiti(fileURLToPath(import.meta.url));
 
 jiti('./src/lib/config/env');
+
+const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -21,7 +25,7 @@ const nextConfig = {
   },
 };
 
-export default withSentryConfig(nextConfig, {
+const nextConfigWithSentry = withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
@@ -60,3 +64,7 @@ export default withSentryConfig(nextConfig, {
   // https://vercel.com/docs/cron-jobs
   automaticVercelMonitors: true,
 });
+
+const nextConfigWithIntl = withNextIntl(nextConfigWithSentry);
+
+export default nextConfigWithIntl;
